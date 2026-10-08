@@ -1,0 +1,2827 @@
+{
+  "categories": [
+    {
+      "sno": 1,
+      "name": "Graphics",
+      "description": "Comprehensive Graphics driver validation tests covering driver installation/PnP, display configuration, performance, power management, hybrid graphics, video processing, error handling (including TDR), and application compatibility for Surface devices (WDDM-focused).",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Plug and Play",
+          "acronym": "PNP",
+          "description": "Tests specific to basic functionality of start/stop/disable/enable requests and resource handling by the Plug and Play infrastructure (PnP) for the graphics driver/adapter.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU"]		
+        },
+        {
+          "sno": 2,
+          "name": "Display Configuration Support Tests",
+          "acronym": "DCS",
+          "description": "Tests to validate that the graphics driver under test supports different display configurations (multi-monitor, resolution/mode switches, external displays via USB-C/Surface Connect, hot-plug) as well as basic display functionality (brightness, ambient light sensor, etc.). Many tests use a Microsoft Surface Dock (port replicator; solid black brick form factor). Use only official Microsoft Surface Dock hardware; other port replicators are not supported for these validation scenarios.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU"]	
+        },
+        {
+          "sno": 3,
+          "name": "DirectX Support",
+          "acronym": "D3D",
+          "description": "Tests to validate graphics driver support for different DirectX / DXGI feature levels, presentation models (blt/flip/DirectFlip), and related rendering functionality.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU"]
+        },
+        {
+          "sno": 4,
+          "name": "OpenGL/OpenCL Support",
+          "acronym": "OGL/OCL",
+          "description": "Tests to validate graphics driver support for OpenGL and OpenCL applications and related compute/rendering scenarios.",
+          "driverTags": ["UEFI", "Graphics", "NVidia", "IPU"]
+        },
+        {
+          "sno": 5,
+          "name": "Power Management",
+          "acronym": "PM",
+          "description": "Tests specific to basic functionality of power management scenarios (Sleep, Hibernate, Reboot, connected standby / Modern Standby where applicable, and graphics power-component handling).",
+          "driverTags": ["UEFI", "Graphics", "NVidia", "IPU"]
+        },
+        {
+          "sno": 6,
+          "name": "Hybrid Graphics Support",
+          "acronym": "HYB",
+          "description": "Tests specific to hybrid graphics configurations (iGPU + dGPU) to verify interaction, cross-adapter resources, present paths, and switching between integrated and discrete graphics drivers.",
+          "driverTags":["UEFI", "Graphics", "NVidia", "IPU"]
+        },
+        {
+          "sno": 7,
+          "name": "Video Processing",
+          "acronym": "VID",
+          "description": "Tests specific to verify graphics driver support for video processing scenarios (DXVA, video processor, decode/encode, playback under load, etc.).",
+          "driverTags":["UEFI", "Graphics", "Audio", "OEMPanel", "IPU"]
+        },
+        {
+          "sno": 8,
+          "name": "Error Support",
+          "acronym": "ERR",
+          "description": "Tests specific to verify the robustness of the graphics driver when invalid parameters are intentionally sent to the driver, plus recovery support for timeout detection and recovery (TDR) and related error-handling scenarios.",
+          "driverTags": ["UEFI", "Graphics", "NVidia", "IPU"]
+        },
+        {
+          "sno": 9,
+          "name": "Streaming + PM",
+          "acronym": "STRPM",
+          "description": "Tests specific to power-state behavior (Sleep/Hibernate/connected standby) during video streaming scenarios using popular browsers and applications.",
+          "driverTags": ["UEFI", "Graphics", "NVidia", "IPU"]
+        }
+      ]
+    },
+    {
+      "sno": 2,
+      "name": "Display",
+      "description": "Display User Experience Smoke Tests focused on visual quality, color accuracy, inking performance, brightness/ALS behavior, power-state visual consistency, and user-facing display features on Surface devices.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Accelerated Ink Functionality for primary apps",
+          "acronym": "INK",
+          "description": "Tests for pen and finger inking performance, smoothness, latency, pressure sensitivity, and reliability in first-party Microsoft applications (Microsoft Edge, Snip & Sketch / Snipping Tool, Microsoft Whiteboard, and OneNote).",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics"]
+        },
+        {
+          "sno": 2,
+          "name": "Color Profile Functionality and External Monitor",
+          "acronym": "CPF",
+          "description": "Tests related to color profile enumeration, validation, switching behavior, and correct application of color profiles on both the internal Surface display and external monitors.",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics","Dock"]
+        },
+        {
+          "sno": 3,
+          "name": "Confirm Color Calibration",
+          "acronym": "CAL",
+          "description": "Verification of color calibration accuracy using UEFI tools and proper ICC profile handling and application on the display.",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics"]
+        },
+        {
+          "sno": 4,
+          "name": "Driver Stability (Driver Verifier)",
+          "acronym": "DVS",
+          "description": "Stability testing with Driver Verifier enabled to detect memory corruption, leaks, and system crashes related to the display/graphics stack.",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics"]
+        },
+        {
+          "sno": 5,
+          "name": "Enumeration and Control",
+          "acronym": "ENC",
+          "description": "Validation of monitor enumeration in Device Manager, correct driver loading and unloading, and basic display control functionality.",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics"]
+        },
+        {
+          "sno": 6,
+          "name": "Image Quality",
+          "acronym": "IMG",
+          "description": "Visual validation tests for static images, video playback, text rendering, screen rotation, and multi-monitor / screen spanning scenarios.",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics"]
+        },
+        {
+          "sno": 7,
+          "name": "Startup Behavior / State Transition",
+          "acronym": "SBT",
+          "description": "Validation of image consistency, brightness persistence, logo rendering, and overall visual behavior during power state transitions (boot, sleep, hibernate, and resume).",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics"]
+        },
+        {
+          "sno": 8,
+          "name": "User Adjustment",
+          "acronym": "USR",
+          "description": "Validation of user-facing display controls including Ambient Light Sensor (ALS) response, Night Light, Battery Saver effects on the display, brightness slider, and keyboard backlight brightness adjustment.",
+          "driverTags": ["OEMPanel", "CMF", "TCON", "Graphics"]
+        }
+      ]
+    },
+    {
+      "sno": 3,
+      "name": "Creativity",
+      "description": "Tests focused on creative applications performance, stability, and visual quality validation across 2D/3D drawing, rendering, Adobe Creative Cloud suite, video processing, and CAD tools on Surface devices.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "2D Drawing",
+          "acronym": "2DD",
+          "description": "Tests inking, sketching, photo editing, layering, and basic drawing capabilities using popular 2D creative applications, with emphasis on pen/touch performance, smoothness, and visual fidelity.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU"]
+        },
+        {
+          "sno": 2,
+          "name": "3D Rendering",
+          "acronym": "3DR",
+          "description": "Evaluates 3D model viewing, creation, basic manipulation, rendering performance, and visual quality in 3D creative workflows.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU", "Camera"]
+        },
+        {
+          "sno": 3,
+          "name": "Adobe",
+          "acronym": "ADB",
+          "description": "Comprehensive testing of Adobe Creative Cloud applications (Photoshop, Fresco, Lightroom, After Effects, Premiere Pro, Illustrator, and related tools) covering photo editing, sketching, layering, animation, compositing, and video workflows for performance, stability, and visual quality.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU"]
+        },
+        {
+          "sno": 4,
+          "name": "Video Processing",
+          "acronym": "VPR",
+          "description": "Validates professional video editing workflows including color adjustment, splicing, transitions, effects, playback, and export quality, primarily using Adobe tools and similar creative video applications.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU"]
+        },
+        {
+          "sno": 5,
+          "name": "Computer Aided Design",
+          "acronym": "CAD",
+          "description": "Assesses 3D modeling, design, and basic CAD workflows (viewing, editing, manipulation, and export) using applications such as FreeCAD, SketchUp, and comparable CAD tools.",
+          "driverTags": ["UEFI", "Graphics", "OEMPanel", "NVidia", "IPU"]
+        }
+      ]
+    },
+    {
+      "sno": 4,
+      "name": "Gaming",
+      "description": "Validates gaming performance, core device functionality during gameplay, accessories support, third-party platform compatibility, and Mixed Reality gaming experiences on Surface devices.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Gaming Accessories",
+          "acronym": "GA",
+          "description": "Tests functionality and reliability of gaming-related accessories including keyboard, mouse, Bluetooth headsets, Xbox controllers, and Type Cover during gameplay.",
+          "driverTags": ["WIFI", "BT", "Graphics", "Audio", "Nvidia", "BTTC"]
+        },
+        {
+          "sno": 2,
+          "name": "Device Functionality for Gaming",
+          "acronym": "DFG",
+          "description": "Core device gaming validation covering display configurations, audio output, touch input, Xbox Game Pass, game launch experience, fullscreen behavior, playability, frame rate (FPS), sleep/resume, detach scenarios, and Xbox Game Bar integration.",
+          "driverTags": ["WIFI", "BT", "Graphics", "Audio", "Nvidia", "BTTC"]					
+        },
+        {
+          "sno": 3,
+          "name": "Third-Party Platforms Support",
+          "acronym": "TPPS",
+          "description": "Installation, sign-in, game library access, and game launch validation for major third-party platforms including Steam, Battle.net (Blizzard), and Epic Games Launcher.",
+          "driverTags": ["WIFI", "BT", "Graphics", "Audio", "Nvidia"]
+        },
+        {
+          "sno": 4,
+          "name": "Mixed Reality Experience",
+          "acronym": "MRE",
+          "description": "Validates Mixed Reality setup and gaming experiences including Minecraft MR, Edge browsing in MR, video playback, home area navigation, motion controllers, sleep/resume behavior, audio, and overall MR session stability.",
+          "driverTags": ["WIFI", "BT", "Graphics", "Audio", "Nvidia"]
+        }
+      ]
+    },
+    {
+      "sno": 5,
+      "name": "BPM",
+      "description": "Validates Battery Protection Management (BPM) features across versions including smart charging, counters, protection modes, Battery Limit Mode, Charge Temperature Throttling, and health indicators.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "BPM_1",
+          "acronym": "",
+          "description": "Counter_A: The system shall increment a counter every minute when RSOC >= 81% over a rolling 7-day period using the table.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 2,
+          "name": "BPM_2",
+          "acronym": "",
+          "description": "When exiting BPM, Counter_A shall be set to 0.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 3,
+          "name": "BPM_3",
+          "acronym": "",
+          "description": "Counter_B: The system shall increment a counter every minute when RSOC > 95% and the device is in active/S0 power state.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 4,
+          "name": "BPM_4",
+          "acronym": "",
+          "description": "When dropping below RSOC 93% and BPM is engaged, Counter B shall be set to 0.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 5,
+          "name": "BPM_5",
+          "acronym": "",
+          "description": "Once either counter exceeds 3540 and RSOC >= 81%, the system shall enter Battery Protection Mode (BPM).",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 6,
+          "name": "BPM_6",
+          "acronym": "",
+          "description": "The system shall not enter BPM for the first time until the HvtLifeTime counter exceeds 10,620 minutes.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 7,
+          "name": "BPM_7",
+          "acronym": "",
+          "description": "When first entering BPM, the system shall discharge the battery to RSOC of 80%.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 9,
+          "name": "BPM_9",
+          "acronym": "",
+          "description": "While in BPM, if the battery RSOC drops below 50%, the device shall exit BPM.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 10,
+          "name": "BPM_10",
+          "acronym": "",
+          "description": "While in BPM, the true RSOC shall be shown to the user without scaling.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 12,
+          "name": "BPM_12",
+          "acronym": "",
+          "description": "The user shall be able to pause BPM for 1 day or 7 days from the Surface App while on battery power or attached to AC power.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 13,
+          "name": "BPM_13",
+          "acronym": "",
+          "description": "Once HvtLifeTime exceeds 414,000 minutes on a battery, the Surface App will gray out the 7-day pause option, while the 1-day pause remains available.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 14,
+          "name": "BPM_14",
+          "acronym": "",
+          "description": "If a user selects a pause period while BPM is already paused, the remaining pause period should change to the newly selected duration.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 15,
+          "name": "BPM_15",
+          "acronym": "",
+          "description": "The user shall be able to manually enter BPM and hold the device at an RSOC of 80% using the Surface App.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 16,
+          "name": "BPM_16",
+          "acronym": "",
+          "description": "The system shall maintain the battery at an RSOC level of 80% with PSU attached, with a float charge of 77-80% while always showing 80%.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 17,
+          "name": "BPM_17",
+          "acronym": "",
+          "description": "System will ignore the first 3 BPM entries.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 18,
+          "name": "BPM_18",
+          "acronym": "",
+          "description": "Battery telemetry should reflect the current BPM state and counters while the device is in the protected mode.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 19,
+          "name": "BPM_19",
+          "acronym": "",
+          "description": "The system shall allow BPM to be exited and re-entered based on the configured conditions and counters.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 20,
+          "name": "BPM_20",
+          "acronym": "",
+          "description": "BPM state and counters must be preserved across the relevant device power states and telemetry updates.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 21,
+          "name": "BPM_21",
+          "acronym": "",
+          "description": "Telemetry values should remain consistent with the current BPM engagement state and battery condition.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 22,
+          "name": "BPM_22",
+          "acronym": "",
+          "description": "The device shall use the BPM counters to track sustained charging and protection behavior over time.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 23,
+          "name": "BPM_23",
+          "acronym": "",
+          "description": "The device shall reflect BPM engagement state in the telemetry payload and user-visible battery indicators.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 24,
+          "name": "BPM_24",
+          "acronym": "",
+          "description": "The battery shall remain within the expected protected range while BPM is engaged.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 25,
+          "name": "BPM_25",
+          "acronym": "",
+          "description": "The user-visible battery status should indicate that BPM is active when the protection mode is engaged.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 31,
+          "name": "BPM_31",
+          "acronym": "",
+          "description": "Counter_A: The system shall increment a counter every minute when RSOC >= 81% over a rolling 7-day period using the table.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 32,
+          "name": "BPM_32",
+          "acronym": "",
+          "description": "When exiting BPM, Counter_A shall be set to 0.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 33,
+          "name": "BPM_33",
+          "acronym": "",
+          "description": "Counter_B: The system shall increment a counter every minute when RSOC > 95% and the device is active/S0 power state.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 34,
+          "name": "BPM_34",
+          "acronym": "",
+          "description": "When dropping below RSOC 93%, Counter B shall be set to 0.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 35,
+          "name": "BPM_35",
+          "acronym": "",
+          "description": "Once either counter exceeds 3540 and RSOC >= 95%, the system shall enter Battery Protection Mode (BPM).",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 36,
+          "name": "BPM_36",
+          "acronym": "",
+          "description": "When first entering BPM, the system shall discharge the battery to RSOC of 80%.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 37,
+          "name": "BPM_37",
+          "acronym": "",
+          "description": "While in BPM, the system shall maintain the battery at an RSOC level of 80%, with a float charge of 77-80% while attached to PSU.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 38,
+          "name": "BPM_38",
+          "acronym": "",
+          "description": "While in BPM, if the battery RSOC drops below 50%, the device shall exit BPM and the system shall keep track of the BPM exit count.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 39,
+          "name": "BPM_39",
+          "acronym": "",
+          "description": "If the user exits BPM more than 2 times within a 7-day period, the exit criteria shall change from 50% to 20% until the condition is reversed.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 40,
+          "name": "BPM_40",
+          "acronym": "",
+          "description": "While in BPM and RSOC between 50% and 80%, the system shall show the user a scaled SOC value per the graph below. No scaling below 50% RSOC.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 41,
+          "name": "BPM_41",
+          "acronym": "",
+          "description": "Upon exiting BPM, the user shall be shown the correct RSOC.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 42,
+          "name": "BPM_42",
+          "acronym": "",
+          "description": "Counter_A: The system shall increment a counter every minute when RSOC >= 81% over a rolling 7-day period using the table.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 43,
+          "name": "BPM_43",
+          "acronym": "",
+          "description": "When exiting BPM, Counter_A shall be set to 0.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 44,
+          "name": "BPM_44",
+          "acronym": "",
+          "description": "Counter_B: The system shall increment a counter every minute when RSOC > 95% and the device is active/S0 power state.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 45,
+          "name": "BPM_45",
+          "acronym": "",
+          "description": "When dropping below RSOC 93%, Counter B shall be set to 0.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 46,
+          "name": "BPM_46",
+          "acronym": "",
+          "description": "Once either counter exceeds 3540 and RSOC >= 95%, the system shall enter Battery Protection Mode (BPM).",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 47,
+          "name": "BPM_47",
+          "acronym": "",
+          "description": "When first entering BPM, the system shall discharge the battery to RSOC of 80%.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 48,
+          "name": "BPM_48",
+          "acronym": "",
+          "description": "While in BPM, the system shall maintain the battery at an RSOC level of 80%, with a float charge of 77-80% while attached to PSU.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 49,
+          "name": "BPM_49",
+          "acronym": "",
+          "description": "While in BPM, if the battery RSOC drops below 50%, the device shall exit BPM and the system shall keep track of the BPM exit count.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 50,
+          "name": "BPM_50",
+          "acronym": "",
+          "description": "If the user exits BPM more than 2 times within a 7-day period, the exit criteria shall change from 50% to 20% until the condition is reversed.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 51,
+          "name": "BPM_51",
+          "acronym": "",
+          "description": "While in BPM, the true RSOC shall be shown to the user without scaling.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 52,
+          "name": "BPM_52",
+          "acronym": "",
+          "description": "While in BPM, a heart icon shall appear on the battery icon in Windows.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 53,
+          "name": "BPM_53",
+          "acronym": "",
+          "description": "While in BPM, the battery flyout page in Windows shall say “Fully Smart Charged.”",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 54,
+          "name": "BPM_54",
+          "acronym": "",
+          "description": "The user shall be able to temporarily exit BPM from the Surface App.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 55,
+          "name": "BPM_55",
+          "acronym": "",
+          "description": "When the user selects to temporarily exit BPM from the Surface App, the device shall exit BPM and set Counter A and Counter B to 0; counting resumes as conditions are met.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 56,
+          "name": "BL_1",
+          "acronym": "",
+          "description": "The system shall have a UEFI setting called “Battery Limit” that allows the maximum RSOC level to be set to 50%.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 57,
+          "name": "BL_2",
+          "acronym": "",
+          "description": "The UI for this feature should match the embedded design reference in the workbook.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 58,
+          "name": "BL_3",
+          "acronym": "",
+          "description": "The battery limit setting shall be able to be turned on by SEMM (Surface Enterprise Management Mode).",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 59,
+          "name": "BL_4",
+          "acronym": "",
+          "description": "While in Battery Limit, the system shall show the correct SOC from the battery gas gauge without manipulation as with BPM.",
+          "driverTags": ["SAM", "IPU"]
+        },
+        {
+          "sno": 60,
+          "name": "v1",
+          "acronym": "",
+          "description": "Legacy BPM telemetry validation coverage for the earlier test matrix.",
+          "driverTags": ["SAM"]
+        },
+        {
+          "sno": 61,
+          "name": "v2",
+          "acronym": "",
+          "description": "BPM telemetry validation coverage aligned to the v2 CTQ test category and workbook metadata.",
+          "driverTags": ["SAM"]
+        }
+      ]
+    },
+    {
+      "sno": 6,
+      "name": "Productivity",
+      "description": "Validates performance, stability, and functionality of Microsoft Office applications, communication and collaboration tools, Copilot AI features, and Recall capabilities under various workloads on Surface devices.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Office Document Generation - Report Creation",
+          "acronym": "ODR",
+          "description": "Tests multi-document workflows with large Word and Excel files, including opening, scrolling, navigation, editing, and overall system responsiveness.",
+          "drivers": ["SAM", "WIFI", "BT", "Ethernet", "Graphics", "WoT"]
+        },
+        {
+          "sno": 2,
+          "name": "Office Document Generation - PowerPoint",
+          "acronym": "ODP",
+          "description": "Validates PowerPoint behavior on external monitors, full-screen slideshows, presenter view, and extended desktop presentation scenarios.",
+          "drivers": ["SAM", "WIFI", "BT", "Ethernet", "Graphics"]
+        },
+        {
+          "sno": 3,
+          "name": "Office High Load Scenarios - Word/Excel",
+          "acronym": "OHL",
+          "description": "High-load testing with multiple large Word and Excel documents open simultaneously, including editing, switching between documents, and system stability under sustained load.",
+          "drivers": ["SAM", "WIFI", "BT", "Ethernet", "Graphics", "WoT"]
+        },
+        {
+          "sno": 4,
+          "name": "Windows Mail",
+          "acronym": "MAIL",
+          "description": "Tests email synchronization, send/receive functionality, and overall Mail app behavior while the device is in Connected Standby (CS) mode.",
+          "drivers": ["SAM", "WIFI", "BT", "Ethernet", "Dock", "Graphics", "Audio", "Camera"]
+        },
+        {
+          "sno": 5,
+          "name": "Windows Calendar",
+          "acronym": "CAL",
+          "description": "Validates calendar appointment syncing, reminders, and responsiveness during Connected Standby (CS) mode.",
+          "drivers": ["SAM", "WIFI", "BT", "Ethernet", "Dock", "Graphics", "Audio", "Camera"]
+        },
+        {
+          "sno": 6,
+          "name": "Microsoft Teams - High Load Metrics",
+          "acronym": "TML",
+          "description": "Evaluates Microsoft Teams performance and stability under extended video calls, screen sharing, presentations, and team/channel creation with high resource load.",
+          "drivers": ["SAM", "WIFI", "BT", "Ethernet", "Dock", "Graphics", "Audio", "Camera"]
+        },
+        {
+          "sno": 7,
+          "name": "Microsoft Teams",
+          "acronym": "TMS",
+          "description": "Tests core Microsoft Teams functionality including instant messaging, desktop sharing, multitasking with OneNote, audio/video calls, and meeting features.",
+          "drivers":["SAM", "WIFI", "BT", "Ethernet", "Dock", "Graphics", "Audio", "Camera"]
+        },
+        {
+          "sno": 8,
+          "name": "OneNote",
+          "acronym": "ONE",
+          "description": "Validates OneNote navigation, pen markup and inking, content embedding, external monitor support, split-screen usage, and behavior during Connected Standby.",
+          "drivers":["SAM", "WIFI", "BT", "Ethernet", "Dock", "Graphics", "Audio", "Camera", "WoT"]
+        },
+        {
+          "sno": 9,
+          "name": "Zoom (Store App)",
+          "acronym": "ZOOM",
+          "description": "Tests Zoom meetings, instant messaging, screen and media sharing, and multitasking while playing media in the background.",
+          "drivers":["SAM", "WIFI", "BT", "Ethernet", "Dock", "Graphics", "Audio", "Camera"]
+        },
+        {
+          "sno": 10,
+          "name": "Discord (Store App)",
+          "acronym": "DISC",
+          "description": "Validates Discord voice/video calls, instant messaging, server interactions, and screen/media sharing while running background media.",
+          "drivers":["SAM", "WIFI", "BT", "Ethernet", "Dock", "Graphics", "Audio", "Camera"]
+        },
+        {
+          "sno": 11,
+          "name": "Copilot",
+          "acronym": "COP",
+          "description": "Comprehensive testing of Copilot AI features across Microsoft Edge, Microsoft 365 applications (Word, PowerPoint, Excel, Teams, Outlook), and Windows integration, including voice input, commands, and image handling.",
+          "drivers":["NPU"]
+        },
+        {
+          "sno": 12,
+          "name": "Recall (25H2 Features)",
+          "acronym": "REC",
+          "description": "Validates Recall functionality including timeline navigation, Screenray analysis, the 'Now' button, Click to Do, filters, privacy options, and interactions with the Copilot key.",
+          "drivers":["NPU"]
+        }
+      ]
+    },
+    {
+      "sno": 7,
+      "name": "Consumption",
+      "description": "Battery, energy-efficiency, and media-experience validation for sustained media-consumption workloads on Microsoft Surface and Windows devices. This category covers approved Windows-client and browser paths for streaming video, streaming audio, and media-rich feeds. It evaluates battery discharge and runtime consistency, display and audio power use, network streaming activity, hardware-accelerated media decoding, graphics and media-driver behavior, DRM-protected playback, thermal and stability behavior, playback quality, and application or browser UX. Map issues here when media consumption is the primary workload or trigger. Connected or Modern Standby is relevant only to explicit screen-off, background-audio, suspend/resume, or power-transition variants. Exact content titles, accounts, regions, service tiers, codecs, resolutions, brightness, volume, network conditions, software builds, and driver versions must be maintained as execution metadata in the authoritative test procedure.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Netflix (1hrs - The Office/Walking Dead)",
+          "acronym": "",
+          "description": "Run approved Netflix video through the designated Windows client for a nominal one-hour battery workload with the display active. Playback should remain stable, responsive, synchronized, and power efficient while using the expected DRM, network, audio, display, and hardware-decoding paths. Validate battery discharge and media quality. Map Netflix-client issues involving abnormal drain, startup failure, buffering, DRM, decode acceleration, artifacts, A/V sync, crashes, thermal behavior, windowing, or resume recovery."
+        },
+        {
+          "sno": 2,
+          "name": "Amazon Video (1hrs - The Grand Tour)",
+          "acronym": "",
+          "description": "Stream approved Prime Video content through the designated Windows client for one hour on battery. The Surface device should sustain protected playback without excessive power use, instability, visual corruption, audio defects, or repeated buffering. Validate runtime consistency across the media, graphics, display, audio, and Wi-Fi paths. Map Prime Video client defects involving battery drain, DRM authorization, playback startup, hardware decoding, A/V synchronization, captions, window transitions, crashes, or recovery."
+        },
+        {
+          "sno": 3,
+          "name": "Hulu  (1hrs - Modern Family)",
+          "acronym": "",
+          "description": "Run an approved Hulu video workload in the designated Windows client for one hour on battery with the screen active. Playback should remain smooth and synchronized while the device efficiently uses network, protected-media, decode, graphics, audio, and display resources. Map Hulu-client issues involving excessive discharge, launch or sign-in-to-playback failures, buffering, DRM, dropped frames, artifacts, captions, full-screen behavior, crashes, thermal escalation, or sleep/resume recovery."
+        },
+        {
+          "sno": 4,
+          "name": "HBO Max (1hrs - Game of Thrones)",
+          "acronym": "",
+          "description": "Play an approved YouTube video through the designated Windows client or installed PWA for one hour on battery. The workload should use efficient video decoding and maintain stable adaptive streaming, audio/video synchronization, rendering, and user controls. Validate battery drain, display activity, network use, and media quality. Map issues involving abnormal power use, buffering, resolution switching, dropped frames, artifacts, hardware acceleration, full-screen transitions, captions, crashes, or resume behavior."
+        },
+        {
+          "sno": 5,
+          "name": "Disney + (1hr -Spiderman)",
+          "acronym": "",
+          "description": "Execute the baseline HBO Max Windows-client workload using an approved standard playback profile for one hour on battery. Expect stable protected video, synchronized audio, responsive controls, and consistent power consumption under the standard quality configuration. Map baseline-profile issues involving battery regression, playback startup, DRM, buffering, decode or graphics behavior, artifacts, captions, windowing, crashes, or recovery. This entry is distinct from the protected higher-quality profile in sub-category 6."
+        },
+        {
+          "sno": 6,
+          "name": "Facebook (20min )",
+          "acronym": "",
+          "description": "Execute a second HBO Max Windows-client workload using the approved protected or higher-quality media profile supported by the device, account, region, title, and display. Validate DRM robustness, hardware-protected playback where available, higher media-pipeline load, display behavior, and battery efficiency. Map issues specific to protected playback, quality escalation, HD or HDR negotiation when supported, black video, DRM errors, elevated CPU or GPU use, excessive drain, artifacts, or instability."
+        },
+        {
+          "sno": 7,
+          "name": "Netflix (New Microsoft Edge)",
+          "acronym": "",
+          "description": "Stream approved Disney+ video through the designated Windows client for one hour on battery. Playback should remain stable and synchronized while the platform efficiently uses protected-media, network, hardware-decode, graphics, audio, and display paths. Validate battery consumption and user-visible media quality. Map Disney+ client issues involving abnormal drain, DRM, startup, buffering, artifacts, dropped frames, A/V sync, captions, window or full-screen behavior, crashes, thermal behavior, or resume recovery."
+        },
+        {
+          "sno": 8,
+          "name": "Amazon Video(New Microsoft Edge)",
+          "acronym": "",
+          "description": "Stream an approved Pandora station through the designated Windows client for one hour on battery. Audio should remain continuous and free from pops, skips, distortion, unexpected pauses, or excessive power use. Validate the audio subsystem, network streaming, application stability, and display-on baseline. Map Pandora-client issues involving abnormal drain, playback interruption, background-audio behavior, endpoint changes, volume controls, network recovery, crashes, or screen-off and Modern Standby behavior when explicitly included."
+        },
+        {
+          "sno": 9,
+          "name": "Hulu(New Microsoft Edge)",
+          "acronym": "",
+          "description": "Stream an approved iHeartRadio station through the designated Windows client for one hour on battery. The device should provide uninterrupted, power-efficient audio with stable network recovery and responsive controls. Validate battery discharge, audio quality, application behavior, and supported background-audio transitions. Map issues involving excessive drain, silence, distortion, skips, buffering, station changes, audio-endpoint transitions, crashes, or incorrect screen-off or resume behavior."
+        },
+        {
+          "sno": 10,
+          "name": "HBO Max (New Microsoft Edge)",
+          "acronym": "",
+          "description": "Stream approved Amazon Music content through the designated Windows client for one hour on battery. Audio should remain continuous, responsive, and power efficient while the application uses the expected network, audio, and background-media paths. Map Amazon Music client issues involving excessive discharge, playback startup, buffering, skips, distortion, endpoint switching, media-key or volume behavior, application hangs, network recovery, or explicit background-audio and power-state transitions."
+        },
+        {
+          "sno": 11,
+          "name": "Netflix (Chrome)",
+          "acronym": "",
+          "description": "Stream approved Spotify audio through the designated Windows client for one hour on battery. Expect uninterrupted playback, correct audio routing, responsive controls, stable networking, and consistent power consumption. Validate the Surface audio subsystem and application experience. Map Spotify-client issues involving abnormal drain, pauses, buffering, distortion, pops, skips, endpoint transitions, Bluetooth behavior, media controls, crashes, or supported screen-off and background-audio behavior."
+        },
+        {
+          "sno": 12,
+          "name": "Disney + (Chrome)",
+          "acronym": "",
+          "description": "Stream approved YouTube Music content through the designated Windows client or installed PWA for one hour on battery. Playback should remain continuous, synchronized where video artwork is present, network resilient, and power efficient. Map issues involving abnormal drain, buffering, audio interruption, rendering or animation overhead, endpoint transitions, background playback, media controls, crashes, or screen-off and resume behavior when those variants are explicitly executed."
+        },
+        {
+          "sno": 13,
+          "name": "Amazon Music (Chrome)",
+          "acronym": "",
+          "description": "Browse a media-rich Facebook feed through the designated Windows client or installed PWA for 50 minutes on battery, including representative scrolling and image or video playback. Validate display, graphics, network, autoplay-media, responsiveness, and battery behavior. Map issues involving excessive drain, scrolling jank, rendering corruption, autoplay failures, video buffering, crashes, thermal escalation, or window and rotation behavior. Exclude purely social, account, or messaging defects without a media or platform impact."
+        },
+        {
+          "sno": 14,
+          "name": "Pandora(Chrome)",
+          "acronym": "",
+          "description": "Stream approved Prime Video content in the current supported Microsoft Edge release for one hour on battery. Validate browser rendering, protected playback, hardware acceleration, adaptive streaming, captions, audio/video synchronization, and battery efficiency. Map Edge-specific Prime Video issues involving DRM, black video, playback startup, buffering, abnormal CPU or GPU activity, excessive drain, artifacts, window or full-screen transitions, browser crashes, or recovery after network and power-state changes."
+        }
+      ]
+    },
+    {
+      "sno": 8,
+      "name": "Audio",
+      "description": "Audio covers end-to-end Microsoft Surface audio validation across the Windows audio subsystem and user experience, including audio driver packages, codecs, miniports, services, Audio Processing Objects (APOs), DSP and offload processing, internal speakers, microphone arrays, audio enhancements, voice processing, wired and wireless endpoints, Bluetooth Classic and LE Audio, USB and USB-C audio, Surface Dock and display-audio paths, endpoint discovery and routing, format and sample-rate support, stream concurrency, power-state behavior, real-time communications, speech and accessibility experiences, Microsoft Edge media streaming, and application-specific playback and capture. Validation targets correct installation, enumeration, routing, processing, persistence, audio quality, latency, synchronization, controls, power transitions, interoperability, and recovery. Issues include missing or unstable endpoints, no or low audio, incorrect routing, distortion, imbalance, echo, noise, feedback, clipping, pops, clicks, dropouts, glitches, latency, audio-video desynchronization, setting-persistence failures, service or driver failures, crashes, hangs, and regressions after driver, firmware, operating-system, accessory, or application changes.",
+      "sub-categories": [
+        {
+          "sno": "1",
+          "name": "Drivers",
+          "acronym": "",
+          "description": "Covers validation of the Microsoft Surface audio software package and its integration with Windows and platform hardware, including audio bus, codec and miniport drivers, component and extension drivers, display-audio drivers, Bluetooth and USB audio dependencies, Audio Processing Objects (APOs), DSP integration, audio services, companion applications, firmware interfaces, and driver-delivered endpoint topology or configuration. Validate clean-image installation, side-load and Windows Update paths, update, rollback, uninstall and reinstall, version and date, signatures and INF correctness, service startup, device enumeration, endpoint availability, reboot and power-transition recovery, stream creation, APO initialization and data flow, system stability, and applicable HLK or certification requirements. Map issues here when the primary failure is driver-package installation or servicing, a missing or warning-state device, incorrect version, broken enumeration or topology, service or APO activation failure, driver or firmware incompatibility, crash, hang, bugcheck, memory or resource fault, or an audio regression introduced by a driver, firmware, or operating-system update. Application-only behavior and otherwise healthy platform features belong in their respective workload categories."
+        },
+        {
+          "sno": "2",
+          "name": "Features",
+          "acronym": "",
+          "description": "Covers platform-level Microsoft Surface audio capabilities and cross-workload behavior independent of a single communications client, website, or application. Scope includes built-in speakers and microphone arrays; microphone directionality and beamforming; acoustic echo cancellation, noise suppression, automatic gain control, Voice Clarity and Voice Focus; Dolby and spatial-audio technologies; equalization, virtualization and volume leveling; Personal Audio Sharing; Bluetooth Classic and Bluetooth LE Audio; 3.5 mm, USB and USB-C audio; Surface Dock and HDMI or DisplayPort audio paths; endpoint discovery, default-device selection and transitions; channel balance, volume and media-key behavior; formats, sample rates and bit depths; stream concurrency; audio-video synchronization; offload and low-power playback; orientation, attach or detach behavior; setting persistence; and Modern Standby, sleep, hibernate, reboot and resume scenarios, where supported. Validate clear, balanced, continuous and correctly processed render and capture audio, correct endpoint routing and switching, control responsiveness, feature enablement and persistence, synchronization, interoperability and reliable recovery. Map cross-application issues such as distortion, clipping, imbalance, echo, noise, feedback, dropouts, incorrect processing, unsupported formats, wrong endpoint selection, failed transitions, PAS synchronization failures or power-state regressions here; map package or enumeration defects to Drivers and workload-specific failures to Communication, Edge Browser Streaming or Applications."
+        },
+        {
+          "sno": "3",
+          "name": "Communication",
+          "acronym": "",
+          "description": "Covers real-time communications, conversational audio, Windows speech and related accessibility workloads on Microsoft Surface, including voice and video calls in clients such as Microsoft Teams, Zoom, Webex and similar services, as well as Narrator, Voice Access, voice typing, dictation, speech recognition and other communication-oriented accessibility experiences. Validate full-duplex capture and render through built-in speakers and microphone arrays, wired headsets, USB or USB-C devices, Bluetooth Classic and LE Audio devices, and display or Surface Dock output combined with the intended microphone input. Expected behavior includes correct device discovery and selection, intelligible two-way audio, stable communications processing such as beamforming, acoustic echo cancellation, noise suppression, automatic gain control, Voice Focus or Voice Clarity where supported, correct Bluetooth communications mode, mute and unmute, call and media controls, endpoint switching, notifications, concurrent media, power transitions and recovery. Map issues such as one-way or missing call audio, echo, feedback, excessive noise, robotic or distorted speech, low microphone level, dropouts, latency, wrong input or output selection, Bluetooth profile or quality changes, failed mute state, speech-recognition failure or communication-specific endpoint transitions here. Browser-hosted media playback belongs in Edge Browser Streaming, and non-communications application audio belongs in Applications."
+        },
+        {
+          "sno": 4,
+          "name": "Edge Browser Streaming",
+          "acronym": "",
+          "description": "Covers website-hosted audio and video media playback in Microsoft Edge on Microsoft Surface, including music, video, protected or DRM-controlled content, adaptive or high-quality streams, and representative services such as YouTube, Netflix, Disney+, Hulu, Amazon and Spotify web experiences. Validate playback through built-in speakers, 3.5 mm, USB or USB-C, Bluetooth Classic, Bluetooth LE Audio, external display and Surface Dock audio paths; codec and format handling; protected-content playback; audio quality and continuity; audio-video synchronization; hardware, system and webpage volume controls; play, pause, resume, seek and mute; tab, window, foreground and background transitions; endpoint arrival, removal and switching; concurrent tabs or streams; network interruption and recovery; and supported sleep, Modern Standby or resume behavior. Map issues here when they reproduce specifically during media consumption in Microsoft Edge, including no sound, playback stalls, distorted or intermittent audio, lip-sync errors, control failures, DRM or codec-related playback failures, incorrect browser endpoint routing, loss of audio after seek or tab switching, or browser-specific power-state regressions. Real-time browser calls remain Communication, and the same symptom in an installed application belongs in Applications."
+        },
+        {
+          "sno": "5",
+          "name": "Applications",
+          "acronym": "",
+          "description": "Covers application-specific Microsoft Surface audio playback, capture and control behavior outside website-hosted Microsoft Edge media and dedicated real-time communications workloads. Scope includes Windows inbox, Microsoft Store, desktop and media applications such as Media Player, Movies and TV, streaming-service apps, Spotify, Camera, Sound Recorder, Copilot voice experiences and other applications that render, record, process or respond to audio. Validate local and streamed content, application startup and recovery, supported codecs, containers, channels, formats and sample rates, microphone selection and recording, playback quality, hardware and software volume, play, pause, resume, seek and mute, endpoint selection and transitions across built-in, wired, USB or USB-C, Bluetooth, LE Audio, external display and Surface Dock paths, application concurrency, background and foreground behavior, accessibility output, and supported sleep, Modern Standby, detach, resume and reboot scenarios. Map issues here when audio behavior is isolated to a particular non-Edge application, including no playback or capture, wrong endpoint, silent or corrupted recording, distorted or intermittent audio, format failure, broken media controls, incorrect persistence, application-specific latency or synchronization, or failure after an application lifecycle or power event. Cross-application platform defects belong in Features, package or enumeration failures in Drivers, and call or speech collaboration failures in Communication."
+        }
+      ]
+    },
+    {
+      "sno": 9,
+      "name": "Touch",
+      "description": "Validates the integrated touchscreen digitizer and the touch-related user experience on Microsoft Surface devices, including finger contact detection, supported multi-touch gestures, contact tracking, accuracy, responsiveness, palm rejection, and interaction with Surface Pen where the pen and touchscreen share the display digitizer path. Coverage includes Windows, supported Surface UEFI experiences, applicable device postures, Type Cover attachment states, power transitions, applications, and touch-related reliability signals. Use this category for defects in which finger or pen input is missing, inaccurate, delayed, unstable, falsely generated, incorrectly interpreted, or affected by a Surface or Windows state transition. Exclude touchpad-only defects, display image-quality defects with no input impact, and unrelated Bluetooth, application, or accessory failures unless they directly cause or expose a touchscreen or digitizer problem.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Functional Tests",
+          "acronym": "FCN",
+          "description": "Validates whether the Surface touchscreen digitizer and related pen-input path provide the expected fundamental capabilities. Coverage includes device availability and enumeration, single-touch and simultaneous multi-touch detection, continuous contact tracking, full-screen and edge coverage, taps, presses, dragging, swiping, panning, pinch and rotation gestures, contact release, and rejection of phantom or unintended contacts. It also covers supported Surface Pen tip, eraser, hover, pressure-related input, palm rejection, and pen-touch arbitration when those behaviors depend on the integrated digitizer. Surface-specific validation includes touch operation in Surface UEFI where supported and basic operation across applicable Type Cover attachment states and device postures. Route an issue here when a basic input capability is absent, reports the wrong contact state, loses tracking, creates false contacts, or fails consistently independent of a particular application's implementation. Route primarily timing, smoothness, precision, or sustained user-experience degradation to Responsiveness and Usability Tests instead.",
+          "driverTags": ["TCON", "Touch", "Pen", "Graphics", "IPU", "WoT"]
+        },
+        {
+          "sno": 2,
+          "name": "Power Management and Resume Tests",
+          "acronym": "PM",
+          "description": "Validates that touchscreen and supported pen input enter, leave, and recover from Windows and Surface power states without loss of functionality, false input, excessive recovery delay, or abnormal power behavior. Coverage includes display-off transitions, sleep, Modern Standby including scenarios historically described as Connected Standby, hibernate, restart, shutdown and cold boot, repeated suspend and resume cycles, and operation on AC power and battery power. Applicable Surface scenarios include Type Cover attached or detached, supported docking or undocking transitions, lid or posture changes, and recovery after firmware or driver servicing. Wake-on-Touch is validated only on devices and configurations that explicitly support it; failure to wake must not be assumed to be a defect on unsupported devices, and pen contact is not treated as a Wake-on-Touch mechanism. Route an issue here when touch or pen behavior depends on a power-state transition, wake source, input-suppression state, power source, or resume sequence. Route input failures that occur continuously in the fully active state to Functional Tests or Responsiveness and Usability Tests.",
+          "driverTags": ["TCON", "Touch", "Pen", "Graphics", "IPU", "WoT"]
+        },
+        {
+          "sno": 3,
+          "name": "Responsiveness and Usability Tests",
+          "acronym": "RAU",
+          "description": "Evaluates the quality, timing, precision, stability, and practical usability of touchscreen and digitizer input after basic functionality has been established. Coverage includes response latency, report-rate consistency, jitter, lag, stutter, line wobble, tracking smoothness, contact separation, spatial accuracy, edge and corner usability, fast or repeated gestures, long drags, sustained inking, accidental-contact rejection, and consistency across display orientation, scaling, resolution, and supported device postures. Surface-specific scenarios include changes caused by Type Cover attachment or detachment, convertible or tablet posture, supported external-display or Dock transitions, and peripheral, power, or environmental interactions that degrade touch or pen usability. Windows 10 tablet-mode behavior and Windows 11 posture-responsive behavior must be evaluated according to the operating system and device under test rather than treated as identical features. Route an issue here when touch or pen works but feels delayed, inaccurate, unstable, inconsistent, or difficult to use. Route complete loss of a capability to Functional Tests, power-transition-specific failures to Power Management and Resume Tests, and behavior isolated to an application's input handling to Application Support Tests.",
+          "driverTags": ["TCON", "Touch", "Pen", "Graphics", "WoT"]
+        },
+        {
+          "sno": 4,
+          "name": "Application Support Tests",
+          "acronym": "APPS",
+          "description": "Validates compatibility and end-to-end touchscreen and pen workflows in Windows shell experiences and supported first-party or third-party applications after the underlying digitizer has been shown to function. Coverage includes activating controls, selecting content, scrolling, panning, zooming, rotating, dragging and dropping, text selection, touch-keyboard invocation where applicable, drawing, inking, erasing, supported pressure-sensitive input, palm rejection, and switching between touch, pen, keyboard, and mouse interaction. Validation should consider windowed and full-screen use, orientation and DPI changes, app switching, application suspend and resume, and differences between drawing canvases, browsers, document editors, productivity applications, and Windows user-interface surfaces. The Surface App may be included when it configures or diagnoses a supported pen or touch experience, but unrelated Surface App defects do not belong here. Route an issue here when the touchscreen or pen works at the platform level but an application, control, or application class interprets or responds to the input incorrectly. A system-wide failure across applications should be routed to Functional Tests, Responsiveness and Usability Tests, or Power Management and Resume Tests according to the observed behavior.",
+          "driverTags": ["TCON", "Touch", "Pen", "Graphics", "WoT"]
+        },
+        {
+          "sno": 5,
+          "name": "Touch Telemetry",
+          "acronym": "TT",
+          "description": "Covers touch and pen reliability, servicing, and customer-impact signals identified through telemetry or fleet-level diagnostic analysis rather than through a single manual functional test. This includes evidence of touchscreen or digitizer driver installation failures, device-start problems, firmware or driver regressions, repeated touch-stack faults, abnormal recovery patterns, failures correlated with device model, operating-system build, power state, or update deployment, and trends indicating degraded touch or pen health. Telemetry findings should be associated with the affected touch component, Surface model, driver or firmware version, Windows state, and observable customer impact when that information is available. Route an issue here when its primary evidence is aggregate monitoring, deployment health, diagnostic events, or reliability signals. Do not use this sub-category merely because logs or traces were collected for an otherwise reproducible functional, responsiveness, power-management, or application-specific defect.",
+          "driverTags": ["TCON", "Touch", "Pen", "Graphics"]
+        }
+      ]
+    },
+    {
+      "sno": 10,
+      "name": "Firmware",
+      "description": "Validates Surface firmware functionality including UEFI configuration, device enumeration, TPM, Secure Boot, firmware capsule updates, BitLocker integration, power and thermal management, battery behavior, hardware buttons, enterprise firmware management, and platform recovery scenarios.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Device Manager",
+          "acronym": "",
+          "description": "Validates correct enumeration of firmware and platform devices in Device Manager, including driver versions, firmware entries, unknown devices, device error codes, post-update health, and Surface platform components such as SAM and embedded-controller related devices.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 2,
+          "name": "TPM",
+          "acronym": "",
+          "description": "Validates Trusted Platform Module functionality including enablement, disablement, firmware updates, ownership, clearing, attestation readiness, and integration with BitLocker and other platform security features.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 3,
+          "name": "Secure Boot",
+          "acronym": "",
+          "description": "Validates Secure Boot configuration, certificate enforcement, boot integrity protection, compatibility with firmware updates, and interaction with operating system security requirements.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 4,
+          "name": "Advanced Startup",
+          "acronym": "",
+          "description": "Validates Advanced Startup and recovery options including booting to recovery environments, USB media, diagnostics, and firmware settings.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 5,
+          "name": "One-Time Boot",
+          "acronym": "",
+          "description": "Validates temporary boot from USB, PXE/network, and alternate boot sources using Surface-specific hardware button combinations without changing persistent boot settings.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 6,
+          "name": "Boot Order",
+          "acronym": "",
+          "description": "Validates boot order configuration, persistence across reboots and firmware updates, and correct device prioritization.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 7,
+          "name": "BitLocker",
+          "acronym": "",
+          "description": "Validates BitLocker enablement, PIN entry, TPM integration, recovery workflows, encryption state transitions, and supported input methods before operating system startup.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 8,
+          "name": "UEFI Menu Interaction Methods",
+          "acronym": "",
+          "description": "Validates navigation and interaction with Surface UEFI using touch, Type Cover, Surface Keyboard, external keyboard, and mouse.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 9,
+          "name": "Capsule Update",
+          "acronym": "",
+          "description": "Validates firmware capsule installation, upgrades, rollbacks, version reporting, settings persistence, Device Manager validation, and platform functionality after firmware updates.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 10,
+          "name": "UEFI Password",
+          "acronym": "",
+          "description": "Validates UEFI password creation, modification, removal, persistence across firmware updates, authentication behavior, and handling of invalid password attempts.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 11,
+          "name": "Thermal Management",
+          "acronym": "",
+          "description": "Validates firmware-controlled thermal management including temperature monitoring, fan control, platform thermal policies, throttling behavior, thermal warnings, and overheating protection.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 12,
+          "name": "Capsule Stress & Recovery",
+          "acronym": "",
+          "description": "Validates firmware update resilience through repeated installations, interrupted updates, recovery scenarios, rollback validation, and update failure handling.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 13,
+          "name": "Platform Stability & Recovery",
+          "acronym": "",
+          "description": "Validates firmware stability, Deep Doze recovery, recovery from unexpected shutdowns, resilience after abnormal conditions, and long-duration platform reliability.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 14,
+          "name": "Battery Charging",
+          "acronym": "",
+          "description": "Validates battery charging functionality, charging limits, charging performance, battery health reporting, and charger interoperability.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 15,
+          "name": "Battery Discharging",
+          "acronym": "",
+          "description": "Validates discharge behavior including battery drain characteristics, warning thresholds, shutdown thresholds, runtime estimation, and reporting accuracy.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 16,
+          "name": "Power Port",
+          "acronym": "",
+          "description": "Validates power delivery and charging behavior through Surface Connect, USB-C Power Delivery, Surface Dock, and supported power adapters.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 17,
+          "name": "Hardware Buttons",
+          "acronym": "",
+          "description": "Validates power button, volume buttons, and firmware-controlled button combinations used for startup, recovery, diagnostics, and special platform functions.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 18,
+          "name": "AC Power States",
+          "acronym": "",
+          "description": "Validates Sleep, Hibernate, Shutdown, Restart, and resume behavior while external power is connected.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 19,
+          "name": "Battery Power States",
+          "acronym": "",
+          "description": "Validates Sleep, Hibernate, Shutdown, Restart, and resume behavior while operating solely on battery power.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 20,
+          "name": "Firmware Management",
+          "acronym": "SEMM/DFCI",
+          "description": "Validates enterprise firmware management, policy deployment, Surface Enterprise Management Mode (SEMM), Device Firmware Configuration Interface (DFCI), and persistence of managed firmware settings.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        },
+        {
+          "sno": 21,
+          "name": "Modern Standby",
+          "acronym": "S0",
+          "description": "Validates firmware behavior during Modern Standby including entry, exit, wake events, battery consumption, network connectivity, and recovery from low-power idle states.",
+          "driverTags": ["EC", "SAM", "DPTF"]
+        }
+      ]
+    },
+    {
+      "sno": 11,
+      "name": "Accessories",
+      "description": "Validation of Microsoft Surface accessories and external peripherals including Dial, Docks, Pens, Keyboards, Type Covers, Headsets, and related hardware. Covers connectivity, firmware interactions, Windows integration, power management, interoperability, reliability, and end-user experience across supported Surface devices.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Dial_2.4.0",
+          "acronym": "",
+          "description": "Validation of Surface Dial functionality including Bluetooth connectivity, input interactions, power management, Windows integration, and supported productivity and creativity workflows.",
+          "sub-categories": [
+            {
+              "sno": 1,
+              "name": "Bluetooth Pairing",
+              "acronym": "",
+              "description": "Validation of Bluetooth discovery, pairing, bonding, reconnection behavior, device enumeration, and pairing persistence across reboot and power-state transitions.",
+              "driverTags": ["Sam", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 2,
+              "name": "General Testing",
+              "acronym": "",
+              "description": "Validation of core Dial functionality including rotation input, press actions, radial menu interaction, responsiveness, reliability, and application interoperability.",
+              "driverTags": ["Sam", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 3,
+              "name": "Dial Power State",
+              "acronym": "",
+              "description": "Validation of Dial behavior during power-on, idle, low-battery, battery replacement, wake, and recovery scenarios.",
+              "driverTags": ["Sam", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 4,
+              "name": "Host Power State",
+              "acronym": "",
+              "description": "Validation of Dial functionality across host sleep, Modern Standby, hibernate, restart, shutdown, and resume transitions.",
+              "driverTags": ["Sam", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 5,
+              "name": "User Scenarios - Windows",
+              "acronym": "",
+              "description": "Validation of real-world Windows workflows using Surface Dial including navigation, settings interaction, productivity scenarios, and supported application integrations.",
+              "driverTags": ["Sam", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            }
+          ]
+        },
+        {
+          "sno": 2,
+          "name": "Docks_2.4.0",
+          "acronym": "",
+          "description": "Validation of Surface Dock functionality including charging, display connectivity, USB devices, networking, audio interoperability, power management, and enterprise usage scenarios.",
+          "sub-categories": [
+            {
+              "sno": 1,
+              "name": "General",
+              "acronym": "",
+              "description": "Validation of overall dock functionality including connection stability, device detection, charging behavior, and peripheral interoperability.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 2,
+              "name": "Port Testing - Docking",
+              "acronym": "",
+              "description": "Validation of USB, USB-C, Ethernet, display, and audio port functionality while the device is connected to the dock.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 3,
+              "name": "Port Testing - Power State Transitions",
+              "acronym": "",
+              "description": "Validation of dock-connected peripherals and port functionality during sleep, Modern Standby, hibernate, reboot, and resume transitions.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 4,
+              "name": "Additional Functionality",
+              "acronym": "",
+              "description": "Validation of supplemental dock capabilities including firmware behavior, device management, enterprise scenarios, and accessory interoperability.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 5,
+              "name": "USB-C Dock - Functional",
+              "acronym": "",
+              "description": "Validation of end-to-end USB-C dock functionality including charging, display connectivity, USB peripherals, networking, and user workflows.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 6,
+              "name": "USB-C Dock - USB Drive Only",
+              "acronym": "",
+              "description": "Validation of USB storage enumeration, file transfer, device detection, data integrity, and recovery behavior through dock-connected USB interfaces.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 7,
+              "name": "Dock - USB-C Monitor Only",
+              "acronym": "",
+              "description": "Validation of single-display connectivity through USB-C including monitor detection, resolution negotiation, refresh rate handling, and recovery scenarios.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 8,
+              "name": "Dock - Monitor",
+              "acronym": "",
+              "description": "Validation of display experiences including single-monitor and multi-monitor topologies, hot-plug detection, graphics interoperability, and display recovery.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            },
+            {
+              "sno": 9,
+              "name": "Wake-on-LAN",
+              "acronym": "WOL",
+              "description": "Validation of Wake-on-LAN functionality through supported Surface docks including remote wake initiation, network-triggered startup, and power-state recovery behavior.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "Dock", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Ethernet", "TBT", "CFU"]
+            }
+          ]
+        },
+        {
+          "sno": 3,
+          "name": "Pens_2.4.2",
+          "acronym": "",
+          "description": "Validation of Surface Pen and Surface Slim Pen functionality including pairing, wireless charging, inking, haptics, application integration, power management, and Windows interaction.",
+          "sub-categories": [
+            {
+              "sno": 1,
+              "name": "Pen Pairing",
+              "acronym": "",
+              "description": "Validation of Bluetooth pairing, pen discovery, button registration, reconnection behavior, and pairing persistence.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 2,
+              "name": "Loose Coupling & Pen Charging",
+              "acronym": "",
+              "description": "Validation of magnetic attachment, wireless charging functionality, charging state reporting, coupling stability, and charging reliability.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 3,
+              "name": "Haptic Testing",
+              "acronym": "",
+              "description": "Validation of tactile feedback experiences including haptic response generation, synchronization, responsiveness, and integration with supported applications.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 4,
+              "name": "General Testing",
+              "acronym": "",
+              "description": "Validation of pen accuracy, pressure sensitivity, tilt support, latency, button functionality, and overall user experience.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 5,
+              "name": "Surface App",
+              "acronym": "",
+              "description": "Validation of Surface App integration including battery reporting, customization settings, firmware visibility, and accessory management.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 6,
+              "name": "Snipping Tool",
+              "acronym": "",
+              "description": "Validation of pen interactions with Snipping Tool including shortcut actions, screen capture initiation, annotation workflows, and integration behavior.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 7,
+              "name": "Concepts",
+              "acronym": "",
+              "description": "Validation of Surface Pen experiences within the Concepts application including drawing performance, pressure sensitivity, gesture support, palm rejection, and workflow reliability.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 8,
+              "name": "Whiteboard",
+              "acronym": "",
+              "description": "Validation of Microsoft Whiteboard pen experiences including inking responsiveness, collaborative workflows, palm rejection, drawing accuracy, and session continuity.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 9,
+              "name": "OS Interaction",
+              "acronym": "",
+              "description": "Validation of Windows pen integration including handwriting recognition, navigation, accessibility features, shortcuts, ink workspace behavior, and operating system interactions.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 10,
+              "name": "Power States",
+              "acronym": "",
+              "description": "Validation of pen functionality across sleep, Modern Standby, hibernate, restart, shutdown, and resume scenarios.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            },
+            {
+              "sno": 11,
+              "name": "SLS Screen Positions",
+              "acronym": "",
+              "description": "Validation of pen behavior across Surface Laptop Studio device postures including Laptop Mode, Stage Mode, and Studio Mode.",
+              "driverTags": ["SAM", "TCON", "Touch", "PD Controller", "BT", "Pen", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU", "WoT"]
+            }
+          ]
+        },
+        {
+          "sno": 4,
+          "name": "LaptopKeyboard_2.4.3",
+          "acronym": "",
+          "description": "Validation of integrated Surface Laptop keyboard and touchpad functionality including typing experience, backlight behavior, Windows integration, and power management.",
+          "sub-categories": [
+            {
+              "sno": 1,
+              "name": "Backlight Testing",
+              "acronym": "",
+              "description": "Validation of keyboard backlight functionality including brightness control, illumination consistency, timeout behavior, and ambient-light responses.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 2,
+              "name": "Close Lid Power Options",
+              "acronym": "",
+              "description": "Validation of device behavior when the lid is closed including sleep, hibernate, external display support, and configured Windows power options.",
+              "driverTags": ["SAM", "KIP", "HID", "Keyboard", "Touchpad (PTP)", "Power/CS", "UEFI"]
+            },
+            {
+              "sno": 3,
+              "name": "General Testing",
+              "acronym": "",
+              "description": "Validation of overall keyboard and touchpad behavior, reliability, responsiveness, and usability.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 4,
+              "name": "Keyboard Testing",
+              "acronym": "",
+              "description": "Validation of key input functionality including modifier keys, shortcuts, function keys, scan code generation, rollover behavior, and localization support.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 5,
+              "name": "Power State Testing",
+              "acronym": "",
+              "description": "Validation of keyboard and touchpad functionality across sleep, Modern Standby, hibernate, restart, shutdown, and resume transitions.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "BT", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "CFU"]
+            },
+            {
+              "sno": 6,
+              "name": "Touchpad General Testing",
+              "acronym": "",
+              "description": "Validation of pointer movement, clicking, precision gestures, palm rejection, scrolling, and touchpad responsiveness.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 7,
+              "name": "Touchpad Settings Testing",
+              "acronym": "",
+              "description": "Validation of Windows touchpad settings including gesture customization, sensitivity, scrolling behavior, and persistence of user preferences.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            }
+          ]
+        },
+        {
+          "sno": 5,
+          "name": "GoTypeCovers_2.4.0",
+          "acronym": "",
+          "description": "Validation of Surface Go Type Cover functionality including attachment states, keyboard input, touchpad behavior, authentication workflows, Windows integration, and power-management scenarios.",
+          "sub-categories": [
+            {
+              "sno": 1,
+              "name": "Additional Positions",
+              "acronym": "",
+              "description": "Validation of Type Cover functionality across supported physical positions including attached, angled, folded, detached, transport, and active usage scenarios.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 2,
+              "name": "Authentication",
+              "acronym": "",
+              "description": "Validation of authentication workflows involving Type Cover usage including credential input, secure sign-in experiences, and lock-screen interactions.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 3,
+              "name": "Backlight Testing",
+              "acronym": "",
+              "description": "Validation of keyboard illumination functionality including brightness adjustment, automatic activation, timeout behavior, consistency, and recovery after power-state transitions.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 4,
+              "name": "Blade State Interactions",
+              "acronym": "",
+              "description": "Validation of attach, detach, fold-back, tablet-mode, and closed-cover transitions including keyboard enablement, touchpad behavior, posture detection, and operating-mode changes.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 5,
+              "name": "Close Cover Power Options",
+              "acronym": "",
+              "description": "Validation of device behavior when the Type Cover is closed including sleep entry, wake behavior, display state changes, and compliance with configured Windows power settings.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 6,
+              "name": "Cover Click",
+              "acronym": "",
+              "description": "Validation of Type Cover attach-detach detection including hardware notifications, wake triggers, system recognition, and responsiveness to physical connection events.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 7,
+              "name": "General Testing",
+              "acronym": "",
+              "description": "Validation of overall Type Cover functionality including reliability, interoperability, usability, responsiveness, and end-user experience.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 8,
+              "name": "Keyboard Power State Testing",
+              "acronym": "",
+              "description": "Validation of keyboard behavior across sleep, Modern Standby, hibernate, restart, shutdown, resume, attach, and recovery scenarios.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 9,
+              "name": "Keyboard Testing",
+              "acronym": "",
+              "description": "Validation of keyboard input functionality including typing accuracy, modifier keys, shortcuts, function keys, localization support, and scan-code correctness.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 10,
+              "name": "OSK",
+              "acronym": "OSK",
+              "description": "Validation of Windows On-Screen Keyboard behavior including automatic invocation, transition between physical and virtual input, accessibility support, and input continuity.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 11,
+              "name": "Touchpad General Testing",
+              "acronym": "",
+              "description": "Validation of touchpad functionality including pointer movement, click actions, scrolling, gesture recognition, palm rejection, and precision touchpad compliance.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 12,
+              "name": "Touchpad Settings Testing",
+              "acronym": "",
+              "description": "Validation of touchpad configuration settings including gesture customization, sensitivity, scrolling behavior, accessibility options, and persistence of user preferences.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            }
+          ]
+        },
+        {
+          "sno": 6,
+          "name": "FangTypeCovers_2.4.3",
+          "acronym": "",
+          "description": "Validation of advanced Surface Type Cover accessories including keyboard functionality, authentication features, regional layouts, charging-related capabilities, and user interaction experiences.",
+          "sub-categories": [
+            {
+              "sno": 1,
+              "name": "Additional Positions",
+              "acronym": "",
+              "description": "Validation of accessory functionality across supported attachment positions, orientations, posture transitions, and operational modes.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 2,
+              "name": "Authentication",
+              "acronym": "",
+              "description": "Validation of authentication workflows including sign-in experiences, credential entry, security scenarios, and hardware-assisted authentication behavior.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 3,
+              "name": "Backlight Testing",
+              "acronym": "",
+              "description": "Validation of keyboard illumination functionality including brightness adjustment, timeout behavior, consistency, recovery after power-state transitions, and user controls.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 4,
+              "name": "Cover Click",
+              "acronym": "",
+              "description": "Validation of attach-detach detection, hardware event generation, wake triggers, user notifications, and accessory recognition scenarios.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 5,
+              "name": "FPR Testing",
+              "acronym": "FPR",
+              "description": "Validation of Fingerprint Reader functionality including biometric enrollment, Windows Hello integration, authentication reliability, recognition accuracy, and recovery scenarios.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "FPR", "CFU"]
+            },
+            {
+              "sno": 6,
+              "name": "General Testing",
+              "acronym": "",
+              "description": "Validation of overall accessory functionality including stability, interoperability, reliability, responsiveness, and user experience.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 7,
+              "name": "Japanese Keyboard Testing",
+              "acronym": "",
+              "description": "Validation of Japanese keyboard layouts including IME interaction, language-specific keys, localized shortcuts, character input behavior, and regional user experiences.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 8,
+              "name": "Keyboard Testing",
+              "acronym": "",
+              "description": "Validation of key input functionality including typing accuracy, modifier keys, shortcut combinations, scan-code correctness, and localization support.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            },
+            {
+              "sno": 9,
+              "name": "WLC Pocket",
+              "acronym": "WLC",
+              "description": "Validation of wireless charging related functionality including charging initiation, alignment detection, charging-state reporting, accessory storage, and availability scenarios.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID", "Type Cover", "CFU"]
+            }
+          ]
+        },
+        {
+          "sno": 7,
+          "name": "Headsets",
+          "acronym": "",
+          "description": "Validation of Surface and Microsoft headsets including Bluetooth connectivity, audio functionality, microphone performance, Teams integration, power management, conferencing experiences, and user controls.",
+          "sub-categories": [
+            {
+              "sno": 1,
+              "name": "Headsets - Bluetooth Pairing",
+              "acronym": "",
+              "description": "Validation of Bluetooth discovery, pairing, bonding, reconnect behavior, device switching, pairing persistence, and headset enumeration scenarios.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 2,
+              "name": "Headsets - General Testing",
+              "acronym": "",
+              "description": "Validation of audio playback, microphone operation, call functionality, media controls, device reliability, and overall headset user experience.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 3,
+              "name": "Headsets - Host Power State",
+              "acronym": "",
+              "description": "Validation of headset connectivity and functionality during sleep, Modern Standby, hibernate, restart, shutdown, and resume transitions.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 4,
+              "name": "Headsets - USB Link & Teams Interaction",
+              "acronym": "",
+              "description": "Validation of USB-connected headset functionality and Microsoft Teams integration including call controls, mute synchronization, device switching, meeting participation, and conferencing workflows.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 5,
+              "name": "Headsets - Earbud Specific",
+              "acronym": "",
+              "description": "Validation of earbud-specific functionality including charging case interactions, independent earbud operation, insertion detection, audio routing, and synchronization behavior.",
+              "driverTags": ["SAM", "TCON", "PD Controller", "BT", "Audio", "OEMPanel", "SSH", "KIP", "SMF", "HID", "SID"]
+            },
+            {
+              "sno": 6,
+              "name": "Image Quality",
+              "acronym": "",
+              "description": "Validation of integrated camera experiences where supported, including image clarity, video quality, exposure behavior, framing consistency, and conferencing scenarios.",
+              "driverTags": ["Surface Bluetooth", "Surface Bluetooth LE"]
+            },
+            {
+              "sno": 7,
+              "name": "Startup Behavior / State Transition",
+              "acronym": "",
+              "description": "Validation of initialization, startup recovery, state synchronization, readiness detection, and functional behavior during operational state transitions.",
+              "driverTags": ["Surface Bluetooth", "Surface Bluetooth LE", "Audio", "Power/CS"]
+            },
+            {
+              "sno": 8,
+              "name": "User Adjustment",
+              "acronym": "",
+              "description": "Validation of user-configurable controls including volume adjustment, mute functionality, equalizer settings, ANC controls, customization options, and preference persistence.",
+              "driverTags": ["Surface Bluetooth", "Surface Bluetooth LE", "Audio", "HID"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sno": 12,
+      "name": "Commercial",
+      "description": "Validates enterprise deployment, manageability, security, diagnostics, firmware configuration, networking, docking, and administrator-controlled hardware policies for Microsoft Surface devices. Coverage includes Surface UEFI, Surface Enterprise Management Mode, Device Firmware Configuration Interface, Windows Autopilot, BitLocker, TPM, commercial enrollment, Surface Diagnostic Toolkit, Surface Tools for IT, and firmware-level control of device components.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "SEMMAdvancedSettings",
+          "acronym": "SEMM",
+          "description": "Validates advanced Surface Enterprise Management Mode configuration, including administrator-controlled Surface UEFI settings, firmware-level hardware policies, security options, configuration persistence, and protection against unauthorized changes. Includes applying, modifying, and verifying advanced settings on SEMM-enrolled Surface devices.",
+          "driverTags": ""
+        },
+        {
+          "sno": 2,
+          "name": "ThirdPartyEncryptionMcAfee",
+          "acronym": "McAfee",
+          "description": "Validates Surface and Windows behavior when McAfee enterprise encryption is installed or enabled. Covers encryption initialization, authentication, startup behavior, firmware and driver compatibility, reboot and recovery scenarios, and preservation of encrypted data access after system, firmware, or configuration changes.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 3,
+          "name": "ThirdPartyEncryptionSymantec",
+          "acronym": "Symantec",
+          "description": "Validates Surface and Windows behavior with Symantec enterprise encryption. Covers installation, encryption state, preboot or sign-in authentication, restart and recovery behavior, driver and firmware compatibility, and continued access to protected data after system or firmware changes.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 4,
+          "name": "AllCameras",
+          "acronym": "",
+          "description": "Validates the global firmware or enterprise policy that enables or disables all supported cameras on a Surface device. Confirms that front, rear, and infrared cameras follow the configured state, appear or disappear from Windows as expected, and return to normal operation after the policy is reversed.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 5,
+          "name": "AlternateBootOrder",
+          "acronym": "",
+          "description": "Validates alternate boot-order behavior in Surface UEFI. Covers enabling and disabling alternate boot controls, selecting an allowed startup source, rebooting the device, verifying the effective boot sequence, and confirming that configured restrictions persist across restart and firmware servicing.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 6,
+          "name": "AutopilotDFCI",
+          "acronym": "DFCI",
+          "description": "Validates Device Firmware Configuration Interface management during Windows Autopilot deployment. Covers device registration, enrollment, delivery and enforcement of supported Surface UEFI policies, configuration synchronization, restart behavior, policy persistence, and reporting of firmware configuration status through the management service.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 7,
+          "name": "BatteryLimit",
+          "acronym": "",
+          "description": "Validates the Surface Battery Limit firmware setting used for devices that remain connected to external power for extended periods. Confirms that the setting can be enabled or disabled, affects charging behavior as designed, persists across restart, and does not prevent normal battery or AC-power operation.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 8,
+          "name": "BitLocker",
+          "acronym": "",
+          "description": "Validates BitLocker device-encryption behavior on Surface devices, including encryption state, TPM-based protection, key protectors, startup and sign-in behavior, suspension and resumption, recovery-key handling, and continued data access after supported firmware, operating-system, or configuration changes.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 9,
+          "name": "BitLockerNetworkUnlock",
+          "acronym": "",
+          "description": "Validates BitLocker Network Unlock for managed Surface devices connected to an eligible enterprise network. Confirms that a protected operating-system volume can unlock through the configured network workflow, while startup outside the approved environment continues to require the applicable BitLocker authentication or recovery method.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 10,
+          "name": "BitLockerUnlock",
+          "acronym": "",
+          "description": "Validates successful unlocking of a BitLocker-protected Surface device or volume. Covers expected use of TPM, PIN, startup key, password, or recovery key as applicable, handling of incorrect credentials, access to protected data after unlock, and restoration of normal startup behavior.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 11,
+          "name": "Bluetooth",
+          "acronym": "BT",
+          "description": "Validates Bluetooth availability and enterprise-controlled enablement on Surface devices. Covers adapter detection, firmware-level enable and disable behavior, Windows device state, pairing and reconnection of supported peripherals, restart persistence, radio coexistence, and restoration of functionality after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 12,
+          "name": "BootOrderLock",
+          "acronym": "",
+          "description": "Validates locking of the Surface UEFI boot order against unauthorized or unintended modification. Confirms that the configured startup sequence remains enforced, restricted changes are rejected or unavailable, approved boot sources continue to work, and the lock persists across restart and firmware updates.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 13,
+          "name": "ClearSEMM",
+          "acronym": "SEMM",
+          "description": "Validates removal of Surface Enterprise Management Mode ownership and configuration from an enrolled device. Covers authorized certificate or recovery workflows, removal of managed UEFI policies, return of settings to the expected administrative state, restart behavior, and verification that obsolete SEMM control is no longer enforced.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 14,
+          "name": "Computrace",
+          "acronym": "",
+          "description": "Validates the firmware setting associated with supported Computrace or device-persistence functionality. Covers visibility of the setting, authorized state changes, persistence across restart, correct reporting to the operating system, and prevention of unsupported or unauthorized transitions.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 15,
+          "name": "DebugErrors",
+          "acronym": "",
+          "description": "Validates detection, presentation, logging, and recovery of errors encountered by Commercial test automation, Surface management utilities, diagnostic workflows, or configuration scripts. Covers actionable error messages, accurate failure status, preservation of diagnostic evidence, and safe termination or retry behavior.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 16,
+          "name": "DefaultConfiguration",
+          "acronym": "",
+          "description": "Validates the expected default Commercial configuration of a Surface device before enterprise policies are applied or after an authorized reset. Confirms baseline Surface UEFI settings, hardware availability, security state, boot configuration, and consistency between displayed settings and effective Windows behavior.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 17,
+          "name": "DiscreteGPU",
+          "acronym": "dGPU",
+          "description": "Validates detection, enablement, disablement, and operating-system behavior of a supported discrete graphics processor. Covers firmware policy enforcement, driver enumeration, display and graphics workload behavior, restart persistence, power-state transitions, and restoration after the component is re-enabled.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 18,
+          "name": "DockDisable",
+          "acronym": "",
+          "description": "Validates administrator-controlled disabling and re-enabling of supported Surface Dock functionality. Confirms the effect on dock-connected data, display, network, audio, and peripheral paths as applicable, verifies policy persistence, and ensures normal dock operation returns after the restriction is removed.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 19,
+          "name": "Enclosure",
+          "acronym": "",
+          "description": "Validates enclosure-related identification, status, or configuration exposed by the supported Surface commercial workflow. Confirms that the device or accessory enclosure is recognized correctly, its reported state matches the physical configuration, and related failures are logged without being confused with internal component or dock failures.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 20,
+          "name": "EnterpriseEnrollment",
+          "acronym": "MDM",
+          "description": "Validates enrollment of a Surface device into the designated enterprise management environment. Covers device identity, organizational registration, management discovery, policy delivery, compliance status, restart persistence, and confirmation that the device can receive and apply supported commercial configuration.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 21,
+          "name": "Ethernet",
+          "acronym": "LAN",
+          "description": "Validates wired Ethernet behavior through supported onboard, adapter, or Surface Dock interfaces. Covers device detection, link establishment, addressing, network connectivity, driver and firmware interaction, restart and power-state recovery, policy-controlled availability, and restoration after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 22,
+          "name": "FrontCameraDisable",
+          "acronym": "",
+          "description": "Validates independent firmware or enterprise-policy control of the front-facing camera. Confirms that the front camera is unavailable to Windows and applications while disabled, other camera devices remain in their intended state, and normal detection and capture return after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 23,
+          "name": "GamesFromCloud",
+          "acronym": "",
+          "description": "Validates the applicable Commercial policy or configuration governing access to cloud-delivered gaming experiences. Confirms that the configured allow or block state is enforced for the targeted experience, survives restart and policy refresh, and does not unintentionally affect unrelated enterprise applications or network services.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 24,
+          "name": "IRCameraDisable",
+          "acronym": "IR",
+          "description": "Validates independent disabling and re-enabling of the infrared camera used by supported Windows Hello facial-authentication scenarios. Confirms Windows device enumeration, authentication availability, separation from RGB camera controls, policy persistence, and restoration of expected sign-in behavior.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 25,
+          "name": "LTEDisable",
+          "acronym": "LTE",
+          "description": "Validates firmware or enterprise-policy control of the integrated cellular broadband capability on supported Surface models. Covers modem enumeration, cellular connectivity availability, SIM or eSIM-related behavior where applicable, restart persistence, and restoration of the adapter after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 26,
+          "name": "MACEmulationAuto",
+          "acronym": "MAC",
+          "description": "Validates automatic MAC-address emulation behavior for supported Surface networking or docking configurations. Confirms that the intended address is selected and reported, network identity remains consistent through supported attachment and restart scenarios, and automatic behavior does not produce duplicate or unexpected adapter identities.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 27,
+          "name": "ManualBootOrder",
+          "acronym": "",
+          "description": "Validates manual configuration of boot-device priority in Surface UEFI. Covers changing the order of supported boot sources, saving the configuration, restarting the device, verifying the selected startup path, handling unavailable media, and confirming persistence or policy enforcement.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 28,
+          "name": "MemoryDump",
+          "acronym": "",
+          "description": "Validates generation, retention, discovery, and collection of Windows memory-dump files following an applicable system failure. Confirms that the configured dump type is produced, diagnostic files are accessible to the test or support workflow, and collection does not incorrectly report success when evidence is missing.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 29,
+          "name": "MicrophoneDisable",
+          "acronym": "",
+          "description": "Validates firmware-level or enterprise-policy disabling and re-enabling of Surface microphone devices. Confirms that audio-capture endpoints are unavailable while disabled, playback remains unaffected where expected, the restriction persists across restart, and recording functionality returns after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 30,
+          "name": "MicrosoftOnly",
+          "acronym": "MSOnly",
+          "description": "Validates the configuration that permits only Microsoft-authorized boot, firmware, driver, or security content within the scope of the associated Commercial test. Confirms approved content succeeds, disallowed third-party content is restricted as designed, and the enforced state remains consistent across restart.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 31,
+          "name": "MicrosoftAndThirdParty",
+          "acronym": "MSThirdParty",
+          "description": "Validates the configuration that permits both Microsoft and supported third-party content within the scope of the associated boot or security workflow. Confirms that approved third-party components operate without disabling platform protections and that the selected configuration persists across restart.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 32,
+          "name": "NFC",
+          "acronym": "NFC",
+          "description": "Validates Near Field Communication hardware and enterprise-controlled availability on supported Surface devices. Covers device enumeration, firmware enable and disable behavior, interaction with supported cards or accessories, restart persistence, error reporting, and restoration after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 33,
+          "name": "OnboardAudio",
+          "acronym": "",
+          "description": "Validates integrated Surface audio functionality and firmware-level control. Covers speaker and audio-controller detection, playback, applicable recording paths, driver state, restart and power-transition recovery, disable and re-enable behavior, and separation from dock or external audio devices.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 34,
+          "name": "OwnerSignerConfiguration",
+          "acronym": "",
+          "description": "Validates configuration of the authorized owner or signer used to protect Surface firmware-management packages or settings. Covers signer recognition, acceptance of correctly signed configuration, rejection of unauthorized content, controlled replacement or removal, and persistence of the trust relationship.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 35,
+          "name": "PlutonTPM",
+          "acronym": "TPM",
+          "description": "Validates TPM 2.0 functionality when provided through the Microsoft Pluton security processor on supported Surface devices. Covers hardware detection, readiness and ownership state, key protection, measured-boot or attestation dependencies, BitLocker integration, restart behavior, and recovery from supported firmware changes.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 36,
+          "name": "PXEBootIPv4",
+          "acronym": "PXE IPv4",
+          "description": "Validates Preboot Execution Environment startup over IPv4 using a supported Surface network interface or dock. Covers discovery of the network boot service, retrieval of boot content, boot-order interaction, handling of unavailable services, and successful continuation into the enterprise deployment workflow.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 37,
+          "name": "PXEBootIPv6",
+          "acronym": "PXE IPv6",
+          "description": "Validates Preboot Execution Environment startup over IPv6 using a supported Surface network interface or dock. Covers network-service discovery, acquisition of boot content, boot-order behavior, timeout or fallback handling, and successful entry into the intended enterprise deployment workflow.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 38,
+          "name": "PXEMAC",
+          "acronym": "PXE MAC",
+          "description": "Validates the MAC address presented during PXE boot through supported Surface onboard, adapter, or dock networking. Confirms that deployment services receive the expected network identity and that address selection remains consistent across restart, reconnection, and supported docking configurations.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 39,
+          "name": "RearCameraDisable",
+          "acronym": "",
+          "description": "Validates independent firmware or enterprise-policy control of the rear-facing camera on supported Surface models. Confirms that the rear camera is unavailable while disabled, other cameras retain their intended state, the setting persists across restart, and normal capture returns after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 40,
+          "name": "RecoveryRequest",
+          "acronym": "",
+          "description": "Validates generation, presentation, and handling of a recovery request in the associated Surface enterprise-management or security workflow. Confirms that the request contains the required device context, authorized recovery data is accepted, invalid input is rejected, and the device returns to a manageable state.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 41,
+          "name": "SCPCSecurity",
+          "acronym": "SCPC",
+          "description": "Validates the security configuration and observable protections required by the applicable Secured-core PC scenario on a Surface device. Covers relevant firmware, trusted hardware, boot protection, virtualization-based security dependencies, configuration reporting, and preservation of the intended state after restart or servicing.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 42,
+          "name": "SDCard",
+          "acronym": "SD",
+          "description": "Validates detection and enterprise-controlled availability of the SD or microSD storage interface on supported Surface models. Covers media insertion and removal, read and write access, firmware disable and re-enable behavior, Windows enumeration, restart persistence, and safe handling of unavailable or unsupported media.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 43,
+          "name": "SDEBuildUSB",
+          "acronym": "SDE",
+          "description": "Validates creation of bootable USB media for the Surface Data Eraser workflow. Confirms that required files are placed on the target media, the USB device is prepared successfully, invalid or unsupported media is reported clearly, and the resulting drive can start the intended erasure environment.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 44,
+          "name": "SDEToolInstall",
+          "acronym": "SDE",
+          "description": "Validates installation, update, repair, and removal behavior of the Surface Data Eraser tool. Covers prerequisites, application registration, installation errors, launch readiness, version handling, and preservation or cleanup of configuration data according to the selected setup operation.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 45,
+          "name": "SDEVerification",
+          "acronym": "SDE",
+          "description": "Validates the outcome of a Surface Data Eraser operation. Confirms that targeted internal storage is sanitized according to the selected workflow, completion status is reported accurately, failure or interruption is detectable, and generated evidence does not claim successful erasure when verification is incomplete.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 46,
+          "name": "SDTSurfaceProRunAllTests",
+          "acronym": "SDT",
+          "description": "Validates the Run All Tests workflow in Surface Diagnostic Toolkit on a supported Surface Pro device. Covers test sequencing, user prompts, hardware and software checks, progress reporting, handling of skipped or failed tests, completion status, and availability of diagnostic results.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 47,
+          "name": "SDTFeedback",
+          "acronym": "SDT",
+          "description": "Validates the Surface Diagnostic Toolkit feedback experience. Covers opening the feedback workflow, collecting permitted diagnostic context, accepting user-provided information, handling submission or connectivity failures, protecting entered data, and returning the user safely to the toolkit.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 48,
+          "name": "SDTInstall",
+          "acronym": "SDT",
+          "description": "Validates installation, upgrade, repair, launch readiness, and removal of Surface Diagnostic Toolkit. Covers prerequisites, supported installation paths, registration of required components, handling of setup failures, version transitions, and successful startup after installation.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 49,
+          "name": "SDTLogSave",
+          "acronym": "SDT",
+          "description": "Validates saving and exporting logs from Surface Diagnostic Toolkit. Confirms that diagnostic results and relevant execution details are written to the selected location, filenames and formats are usable, access or storage failures are reported, and incomplete logs are not presented as complete.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 50,
+          "name": "SDTMainPage",
+          "acronym": "SDT",
+          "description": "Validates the Surface Diagnostic Toolkit main-page experience, including startup state, availability of supported diagnostic actions, navigation, device information, status presentation, accessibility of primary controls, and recovery from loading or initialization errors.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 51,
+          "name": "SDTReportGenerator",
+          "acronym": "SDT",
+          "description": "Validates generation of a Surface Diagnostic Toolkit report from completed or partially completed tests. Covers accurate inclusion of results, device and execution context, representation of failures and skipped tests, file creation, error handling, and usability of the report for support analysis.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 52,
+          "name": "SDTSideTray",
+          "acronym": "SDT",
+          "description": "Validates Surface Diagnostic Toolkit behavior from the Windows notification area or side-tray interface. Covers icon availability, status indications, opening and closing the toolkit, supported shortcut actions, persistence during applicable sessions, and recovery when the user interface is restarted.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 53,
+          "name": "SDTSideTraySettings",
+          "acronym": "SDT",
+          "description": "Validates settings available through the Surface Diagnostic Toolkit side-tray interface. Confirms that supported preferences can be viewed and changed, saved values take effect, settings persist as designed, invalid values are handled safely, and defaults can be restored.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 54,
+          "name": "SDTSideTrayTelemetry",
+          "acronym": "SDT",
+          "description": "Validates telemetry-related behavior associated with the Surface Diagnostic Toolkit side-tray experience. Covers honoring the configured diagnostic-data choice, correct status presentation, safe handling when telemetry cannot be submitted, and continued toolkit operation without false success reporting.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 55,
+          "name": "SDTSingleTest",
+          "acronym": "SDT",
+          "description": "Validates execution of an individual test selected in Surface Diagnostic Toolkit. Covers test discovery, prerequisites, instructions, progress, pass, fail, cancel, and retry states, result recording, and isolation from unrelated diagnostic tests.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 56,
+          "name": "SDTSystemRepair",
+          "acronym": "SDT",
+          "description": "Validates supported system-repair actions initiated through Surface Diagnostic Toolkit. Covers detection of a repairable condition, user notification, execution and verification of the repair, restart handling when required, rollback or failure reporting, and preservation of diagnostic evidence.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 57,
+          "name": "SDTTrayWarranty",
+          "acronym": "SDT",
+          "description": "Validates presentation of device warranty information through the Surface Diagnostic Toolkit tray experience. Covers identification of the current device, retrieval and display of available warranty status, handling of missing or unavailable information, refresh behavior, and navigation to applicable support options.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 58,
+          "name": "SEMMDock",
+          "acronym": "SEMM",
+          "description": "Validates Surface Enterprise Management Mode enrollment and configuration of a supported Surface Dock. Covers authorized package application, firmware-managed dock settings, connected-device recognition, policy persistence, update compatibility, and controlled removal of SEMM management.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 59,
+          "name": "SEMMDock2",
+          "acronym": "SEMM",
+          "description": "Validates Surface Enterprise Management Mode management scenarios specific to Surface Dock 2. Covers dock enrollment, secure firmware configuration, administrator-controlled policy enforcement, device and peripheral connectivity behavior, configuration persistence across reconnects and power cycles, firmware update compatibility, recovery workflows, and authorized removal of dock management settings.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 60,
+          "name": "SEMMDock3",
+          "acronym": "SEMM",
+          "description": "Validates Surface Enterprise Management Mode management scenarios for Surface Dock 3. Covers dock enrollment, secure deployment of firmware policies, management of dock-level configuration settings, connected display and peripheral behavior, policy persistence after restart or reconnection, compatibility with firmware servicing operations, recovery workflows, and verification that managed settings remain protected from unauthorized modification.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 61,
+          "name": "SEMMlsv",
+          "acronym": "SEMM",
+          "description": "Validates the SEMM workflow identified as LSV by the Commercial test collateral. Covers successful invocation, expected configuration or status output, handling of unsupported or invalid states, persistence of resulting firmware settings, and collection of sufficient evidence when the workflow fails.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 62,
+          "name": "SEMMRecoveryDFI",
+          "acronym": "DFI",
+          "description": "Validates recovery of a SEMM-managed Surface device using the applicable DFI recovery package or workflow. Covers recognition of authorized recovery content, rejection of invalid content, restoration of a manageable firmware state, restart behavior, and verification of enrollment or configuration after recovery.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 63,
+          "name": "SEMMRecoveryNumber",
+          "acronym": "SEMM",
+          "description": "Validates generation, presentation, and usage of the recovery number associated with a SEMM recovery workflow. Confirms that the identifier maps correctly to the target device, authorized recovery operations succeed, invalid values are rejected, and recovery status is reported accurately.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 64,
+          "name": "SmartCard",
+          "acronym": "",
+          "description": "Validates smart-card authentication and identity workflows on supported Surface commercial configurations. Covers reader detection, certificate-based authentication, sign-in scenarios, card insertion and removal behavior, policy enforcement, and compatibility with enterprise security requirements.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 65,
+          "name": "SMT",
+          "acronym": "SMT",
+          "description": "Validates the Commercial workflow or tool identified as SMT. Covers installation or launch behavior, device discovery, execution of supported operations, status reporting, logging, error handling, and generation of actionable diagnostic information.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 66,
+          "name": "SurfaceToolsForITDataEraser",
+          "acronym": "SDE",
+          "description": "Validates Surface Data Eraser operations available through Surface Tools for IT. Covers boot media creation, device bootability, storage discovery, secure erase execution, completion reporting, and confirmation that storage sanitization completed as intended.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 67,
+          "name": "SurfaceToolsForITDataSanitization",
+          "acronym": "",
+          "description": "Validates end-to-end data sanitization workflows provided by Surface Tools for IT. Covers selection of target storage, sanitization execution, interruption handling, completion evidence, and verification that retired or reassigned devices no longer contain recoverable enterprise data.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 68,
+          "name": "SurfaceToolsForITSetup",
+          "acronym": "",
+          "description": "Validates installation and configuration of Surface Tools for IT. Covers prerequisite validation, component registration, update behavior, launch readiness, installation failures, and availability of supported management utilities after setup.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 69,
+          "name": "SurfaceDimmerAppInstall",
+          "acronym": "",
+          "description": "Validates installation, update, repair, and removal of the Surface Dimmer application. Covers application registration, launch readiness, compatibility checks, installation success reporting, and handling of unsupported device conditions.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 70,
+          "name": "SurfaceDimmerSystemCheck",
+          "acronym": "",
+          "description": "Validates system compatibility checks performed by Surface Dimmer. Confirms accurate verification of supported hardware, display configuration, firmware requirements, operating-system readiness, and reporting of blocking conditions.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 71,
+          "name": "SurfaceToolsForITInstall",
+          "acronym": "",
+          "description": "Validates installation, upgrade, repair, and removal of Surface Tools for IT. Covers successful deployment of utilities, version management, startup readiness, dependency validation, and support for future management operations.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 72,
+          "name": "TypeCoverDisable",
+          "acronym": "",
+          "description": "Validates firmware-level disabling and re-enabling of Surface Type Cover functionality. Confirms keyboard and touchpad availability follow policy state, attachment detection behaves correctly, restrictions persist across restart, and functionality is restored upon re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 73,
+          "name": "UEFIConfiguratorInstall",
+          "acronym": "UEFI",
+          "description": "Validates installation and startup of Microsoft Surface UEFI Configurator. Covers setup prerequisites, application launch, package creation readiness, upgrade scenarios, and accurate handling of installation or dependency failures.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 74,
+          "name": "UEFIPackageCreateMSI",
+          "acronym": "MSI",
+          "description": "Validates creation of MSI-based Surface UEFI configuration packages. Covers selection of firmware settings, configuration validation, signing requirements, package generation, and readiness for enterprise deployment.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 75,
+          "name": "UEFIPackageCreateWinPE",
+          "acronym": "WinPE",
+          "description": "Validates creation of WinPE-based Surface UEFI packages. Covers package generation, certificate integration, media preparation, boot environment compatibility, and successful creation of deployable firmware configuration media.",
+          "driverTags": ["UEFI"]
+
+        },
+        {
+          "sno": 76,
+          "name": "UEFIPackageMSIInstall",
+          "acronym": "MSI",
+          "description": "Validates installation and application of MSI-based Surface UEFI packages. Covers signature validation, SEMM enrollment interaction, configuration enforcement, restart behavior, deployment status reporting, and validation of configured firmware settings.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 77,
+          "name": "UEFIPackageWinPEInstall",
+          "acronym": "WinPE",
+          "description": "Validates deployment of Surface UEFI configuration packages from WinPE. Covers booting deployment media, package discovery, settings application, firmware update interaction, restart workflows, and validation of the resulting configuration state.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 78,
+          "name": "UEFIPages",
+          "acronym": "UEFI",
+          "description": "Validates availability, navigation, access control, and presentation of Surface UEFI pages. Covers Devices, Security, Boot Configuration, Enterprise Management, password-protected sections, and visibility changes resulting from enterprise policy enforcement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 79,
+          "name": "UEFIPassword",
+          "acronym": "UEFI",
+          "description": "Validates creation, modification, enforcement, and removal of Surface UEFI passwords. Covers access protection, incorrect password handling, password persistence across restart, interaction with SEMM policies, and recovery workflows.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 80,
+          "name": "USBAPorts",
+          "acronym": "USB-A",
+          "description": "Validates functionality and policy enforcement for USB Type-A ports. Covers device enumeration, peripheral connectivity, data transfer, boot-device recognition when applicable, firmware-level disablement, and recovery after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 81,
+          "name": "USBBootDisable",
+          "acronym": "USB",
+          "description": "Validates enterprise control of USB boot functionality. Confirms booting from USB media is blocked when disabled, approved boot sources remain functional, policy settings persist across restart, and normal USB functionality remains unaffected unless explicitly restricted.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 82,
+          "name": "USBCPorts",
+          "acronym": "USB-C",
+          "description": "Validates functionality of USB Type-C ports including data transfer, charging, display connectivity, supported alternate modes, docking behavior, firmware-level restrictions, and restoration of functionality after policy changes.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 83,
+          "name": "USBPorts",
+          "acronym": "USB",
+          "description": "Validates global USB device policies affecting all supported USB interfaces. Covers enable and disable behavior, device recognition, policy enforcement, boot interaction, restart persistence, and restoration of expected connectivity after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 84,
+          "name": "VerifyDFCIEnrollment",
+          "acronym": "DFCI",
+          "description": "Validates successful DFCI enrollment and policy ownership. Confirms that firmware settings are managed through the approved cloud management workflow, device enrollment status is reported correctly, and policies remain enforced across synchronization and restart events.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 85,
+          "name": "VerifyEnterpriseEnrollment",
+          "acronym": "MDM",
+          "description": "Validates enterprise enrollment status for managed Surface devices. Covers organizational registration, management association, policy delivery, compliance reporting, restart persistence, and health of the enrollment relationship.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 86,
+          "name": "WakeOnLAN",
+          "acronym": "WoL",
+          "description": "Validates Wake-on-LAN functionality on supported Surface devices. Covers receipt of wake packets, adapter readiness, network-path requirements, resume from supported power states, successful transition to a usable operating system state, and enforcement of disabled configurations.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 87,
+          "name": "WakeOnLANConnectedStandby",
+          "acronym": "WoL-CS",
+          "description": "Validates Wake-on-LAN behavior while a Surface device is in Connected Standby or Modern Standby. Covers wake reliability, network adapter readiness, docked configurations, enterprise-policy enforcement, and recovery from repeated sleep and wake cycles.",
+          "driverTags": ["UEFI"]
+        },
+        {
+          "sno": 88,
+          "name": "WakeOnPower",
+          "acronym": "",
+          "description": "Validates device behavior when external power is connected or restored. Covers automatic startup or wake functionality, power-state transitions, docking scenarios, configuration persistence, and prevention of unintended wake events.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 89,
+          "name": "WiFi",
+          "acronym": "WLAN",
+          "description": "Validates Wi-Fi functionality, availability, and enterprise-policy control on Surface devices. Covers adapter detection, wireless connectivity, authentication, roaming, restart recovery, firmware-level restrictions, and restoration of wireless networking after re-enablement.",
+          "driverTags": ["All","UEFI"]
+        },
+        {
+          "sno": 90,
+          "name": "WiFiBluetooth",
+          "acronym": "WiFi-BT",
+          "description": "Validates coexistence and management of Wi-Fi and Bluetooth radios. Covers independent and combined enablement, device discovery, wireless connectivity, Bluetooth accessory interaction, radio coexistence, power-state transitions, and enterprise-policy enforcement.",
+          "driverTags": ["All","UEFI"]
+        }
+      ]
+    },
+    {
+      "sno": 13,
+      "name": "Camera",
+      "description": "Camera validation categories covering Windows camera functionality, Windows Studio Effects experiences, Windows Hello authentication, camera driver behavior, application interoperability, image and video capture workflows, AI-powered camera features, stress validation, power management scenarios, and Surface device user experiences.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "EGC / Single Face",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction (Eye Contact) behavior for a single active user during preview, recording, and video conferencing scenarios, ensuring accurate gaze alignment, natural visual appearance, and consistent user experience.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 2,
+          "name": "EGC / Multiple Face",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction behavior when multiple faces are present within the camera field of view, ensuring correct subject prioritization, stable gaze rendering, and predictable feature behavior during user transitions.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 3,
+          "name": "EGC / Challenging Content",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction accuracy and stability under challenging environmental and scene conditions, including low-light environments, strong backlighting, motion, partial occlusions, facial accessories, and varying viewing angles.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 4,
+          "name": "EGC / Stress",
+          "acronym": "EGC",
+          "description": "Validate long-duration reliability and stability of Eye Gaze Correction during repeated feature transitions, camera session changes, application switching, and extended periods of continuous usage.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 5,
+          "name": "EGC / Application Compatibility",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction interoperability across supported communication, collaboration, recording, and camera applications while ensuring consistent feature activation, visual quality, and user experience.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 6,
+          "name": "EGC / System Interoperability",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction interaction with Windows camera settings, Studio Effects controls, privacy configurations, and other system-level camera experiences to ensure consistent functionality across operating system workflows.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 7,
+          "name": "EGC / Enable-Disable Preview",
+          "acronym": "EGC",
+          "description": "Validate that Eye Gaze Correction can be enabled and disabled during active preview sessions without visual artifacts, application instability, feature state inconsistencies, or camera interruptions.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 8,
+          "name": "EGC / Enable-Disable Record",
+          "acronym": "EGC",
+          "description": "Validate that Eye Gaze Correction can be enabled and disabled during video recording sessions while ensuring recordings accurately reflect the selected feature state and expected visual output.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 9,
+          "name": "EGC / Enable-Disable Streaming",
+          "acronym": "EGC",
+          "description": "Validate that Eye Gaze Correction can be dynamically enabled and disabled during live streaming and conferencing sessions without impacting stream continuity, feature responsiveness, or call quality.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 10,
+          "name": "EGC / Persistence",
+          "acronym": "EGC",
+          "description": "Validate that Eye Gaze Correction configuration remains retained after camera session termination, application restart, user sign-in or sign-out operations, reboot cycles, and supported power-state transitions.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 11,
+          "name": "EGC / Resolution Coverage",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction behavior across all supported camera resolutions and frame rates while maintaining image quality, responsiveness, gaze accuracy, and feature stability.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 12,
+          "name": "EGC / Feature Visibility with Eye Contact",
+          "acronym": "EGC",
+          "description": "Validate that Eye Contact-related controls, settings, and user interface elements remain accessible, discoverable, and functional when Eye Gaze Correction is active.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 13,
+          "name": "EGC / Multiple Face Enter-Exit",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction responsiveness and tracking stability when users enter, leave, or reposition within the camera field of view during active sessions.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 14,
+          "name": "EGC / Distance Range with Eye Contact",
+          "acronym": "EGC",
+          "description": "Validate Eye Gaze Correction effectiveness across supported user distances from the camera while maintaining natural appearance, tracking consistency, and gaze alignment quality.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 15,
+          "name": "Auto Framing / Enable-Disable Preview",
+          "acronym": "AF",
+          "description": "Validate Auto Framing enablement and disablement during camera preview sessions, ensuring accurate subject centering, frame adjustment behavior, and seamless user tracking.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 16,
+          "name": "Auto Framing / Enable-Disable Record",
+          "acronym": "AF",
+          "description": "Validate Auto Framing functionality during video recording scenarios, ensuring correct frame composition, subject tracking continuity, and recording consistency.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 17,
+          "name": "Auto Framing / Background Blur Coexistence",
+          "acronym": "AF",
+          "description": "Validate simultaneous operation of Auto Framing and Background Blur features, ensuring proper subject tracking, segmentation quality, image consistency, and feature stability.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 18,
+          "name": "Background Blur / Enable-Disable Preview",
+          "acronym": "BB",
+          "description": "Validate Background Blur enablement and disablement during preview scenarios while maintaining accurate foreground segmentation, visual quality, and responsive feature behavior.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 19,
+          "name": "Background Blur / Enable-Disable Record",
+          "acronym": "BB",
+          "description": "Validate Background Blur functionality during video recording scenarios while ensuring segmentation accuracy, recording quality, and stable camera operation.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 20,
+          "name": "Background Blur / Eye Contact Coexistence",
+          "acronym": "BB",
+          "description": "Validate simultaneous operation of Background Blur and Eye Contact features while ensuring both experiences function correctly without visual degradation, feature conflicts, or performance issues.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 21,
+          "name": "Background Blur / Resolution Coverage",
+          "acronym": "BB",
+          "description": "Validate Background Blur behavior across all supported camera resolutions and frame rates while maintaining foreground segmentation accuracy, visual consistency, image quality, feature responsiveness, and overall user experience.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 22,
+          "name": "Background Blur / Feature Visibility with Eye Contact",
+          "acronym": "BB",
+          "description": "Validate that Background Blur controls, settings, and related user interface experiences remain accessible, discoverable, and functional when Eye Contact features are enabled and actively applied.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 23,
+          "name": "Background Blur / Multiple Face Enter-Exit",
+          "acronym": "BB",
+          "description": "Validate Background Blur segmentation stability when multiple users enter, leave, or reposition within the camera field of view, ensuring consistent subject isolation and visual quality.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 24,
+          "name": "Background Blur / Distance Range with Eye Contact",
+          "acronym": "BB",
+          "description": "Validate Background Blur and Eye Contact interoperability across supported viewing distances while maintaining segmentation accuracy, gaze correction quality, image consistency, and expected user experience.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 25,
+          "name": "Face Detection / Single Face Preview",
+          "acronym": "FD",
+          "description": "Validate face detection accuracy, acquisition speed, tracking responsiveness, and stability for a single user during camera preview across supported resolutions, distances, and environmental conditions.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 26,
+          "name": "Face Detection / Single Face Record",
+          "acronym": "FD",
+          "description": "Validate face detection reliability during video recording sessions involving a single user, ensuring continuous face tracking, stable acquisition, and consistent recording behavior.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 27,
+          "name": "Face Detection / Multiple Face Preview",
+          "acronym": "FD",
+          "description": "Validate face detection behavior when multiple users are present during preview scenarios, ensuring accurate face identification, prioritization, tracking transitions, and feature stability.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 28,
+          "name": "Face Detection / Multiple Face Record",
+          "acronym": "FD",
+          "description": "Validate face detection reliability during recording scenarios involving multiple users, ensuring accurate face tracking, subject management, and recording consistency.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 29,
+          "name": "Face Detection / Face Exit and Re-Entry",
+          "acronym": "FD",
+          "description": "Validate face detection responsiveness when a user leaves and subsequently re-enters the camera field of view, ensuring timely reacquisition, tracking recovery, and stable camera behavior.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 30,
+          "name": "System Interoperability / Camera Configuration",
+          "acronym": "SYS",
+          "description": "Validate interoperability between camera hardware, device drivers, Windows camera settings, Studio Effects controls, privacy configurations, and system-level camera management experiences.",
+          "driverTags": ["Camera", "NPU"]
+        },
+        {
+          "sno": 31,
+          "name": "Windows Hello During OOBE",
+          "acronym": "WH",
+          "description": "Validate Windows Hello camera availability, facial enrollment readiness, authentication prerequisites, and end-to-end setup experience during Windows Out-of-Box Experience (OOBE) workflows.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 32,
+          "name": "Camera Driver Performance",
+          "acronym": "DRV",
+          "description": "Validate camera driver stability, responsiveness, latency, resource utilization, recovery behavior, and operational reliability during normal usage and extended workload conditions.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 33,
+          "name": "Overnight and Low Battery Scenarios",
+          "acronym": "PWR",
+          "description": "Validate camera functionality, feature availability, performance characteristics, and recovery behavior during overnight operation, battery saver conditions, and low battery usage scenarios.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 34,
+          "name": "Camera Functionalities, User Experience and Performance",
+          "acronym": "UX",
+          "description": "Validate end-to-end camera functionality, image quality, responsiveness, reliability, usability, and overall user experience during common customer workflows and real-world usage scenarios.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 35,
+          "name": "Video Capture / Front and Rear Camera",
+          "acronym": "VC",
+          "description": "Validate front-facing and rear-facing camera video capture functionality, including recording quality, resolution support, streaming behavior, feature interoperability, and operational consistency.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 36,
+          "name": "User Experience / Display Compatibility",
+          "acronym": "UX",
+          "description": "Validate camera behavior across supported display configurations, including integrated displays, external monitors, docking environments, display orientation changes, and presentation workflows.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 37,
+          "name": "IR Camera Scenarios",
+          "acronym": "IR",
+          "description": "Validate infrared camera functionality, image acquisition behavior, operational reliability, and support for authentication-related workflows across supported infrared camera scenarios.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 38,
+          "name": "IR Camera / Anti-Spoofing",
+          "acronym": "IR",
+          "description": "Validate infrared camera anti-spoofing capabilities against presentation attacks while maintaining legitimate user recognition reliability, authentication accuracy, and security compliance.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 39,
+          "name": "Windows Hello Stress / Lock-Unlock Cycles",
+          "acronym": "WH",
+          "description": "Validate Windows Hello camera readiness, authentication reliability, recognition consistency, and feature stability during repeated lock and unlock operations executed over extended cycles.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 40,
+          "name": "Windows Hello Stress / Modern Standby Cycles",
+          "acronym": "WH",
+          "description": "Validate Windows Hello and camera subsystem behavior during repeated Modern Standby (Connected Standby / S0ix) entry and resume cycles, ensuring authentication readiness, camera availability, and reliable feature operation after power state transitions.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 41,
+          "name": "Windows Hello Stress / Hibernate",
+          "acronym": "WH",
+          "description": "Validate Windows Hello camera readiness, authentication reliability, and facial recognition functionality following repeated hibernation and resume cycles, ensuring successful recovery of all dependent camera components and services.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 42,
+          "name": "Windows Hello Stress / Restart",
+          "acronym": "WH",
+          "description": "Validate Windows Hello functionality after repeated system restart operations, ensuring camera initialization, authentication availability, enrollment integrity, and recognition performance remain consistent.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 43,
+          "name": "Windows Hello Stress / Sign-Out and Sign-In",
+          "acronym": "WH",
+          "description": "Validate Windows Hello authentication behavior during repeated user sign-out and sign-in operations, ensuring camera readiness, user recognition accuracy, and seamless authentication experiences.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 44,
+          "name": "Windows Hello Stress / Enrollment",
+          "acronym": "WH",
+          "description": "Validate repeated Windows Hello enrollment operations to ensure facial registration workflows complete successfully, camera resources are managed correctly, and enrollment data remains reliable.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 45,
+          "name": "Windows Hello Stress / Lid Close and Open",
+          "acronym": "WH",
+          "description": "Validate Windows Hello camera behavior across repeated lid close and lid open transitions, ensuring authentication services resume correctly and facial recognition remains available without user intervention.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 46,
+          "name": "Windows Hello Stress / Enrollment Performance",
+          "acronym": "WH",
+          "description": "Validate performance, responsiveness, and completion reliability of Windows Hello enrollment workflows across repeated execution cycles and varying system conditions.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 47,
+          "name": "Windows Hello Stress / Authentication Performance",
+          "acronym": "WH",
+          "description": "Validate Windows Hello authentication responsiveness, recognition speed, user experience consistency, and operational stability during repeated facial sign-in scenarios.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 48,
+          "name": "RGB Camera Stress / Concurrent Video Sessions",
+          "acronym": "RGB",
+          "description": "Validate RGB camera stability, resource management, image quality, and operational reliability during concurrent video streaming, recording, preview, or multi-application camera usage scenarios.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 49,
+          "name": "RGB Camera Stress / Lock-Unlock Cycles",
+          "acronym": "RGB",
+          "description": "Validate RGB camera functionality during repeated lock and unlock operations, ensuring camera availability, image pipeline recovery, and continued feature operation after each transition.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 50,
+          "name": "RGB Camera Stress / Lid Close and Open",
+          "acronym": "RGB",
+          "description": "Validate RGB camera behavior across repeated lid close and lid open transitions, ensuring camera initialization, streaming readiness, and feature availability following resume events.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 51,
+          "name": "RGB Camera Stress / Minimize and Restore",
+          "acronym": "RGB",
+          "description": "Validate RGB camera behavior when camera applications are repeatedly minimized, restored, brought to foreground, or moved to background, ensuring uninterrupted camera operation and consistent user experience.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 52,
+          "name": "RGB Camera Stress / Camera Switching",
+          "acronym": "RGB",
+          "description": "Validate RGB camera behavior while switching between front-facing and rear-facing cameras, virtual cameras, camera modes, or camera-consuming applications, ensuring correct device selection and stable operation.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 53,
+          "name": "RGB Camera Stress / Still Capture, Preview and Streaming",
+          "acronym": "RGB",
+          "description": "Validate RGB camera reliability while repeatedly transitioning between still image capture, live preview, video recording, and streaming workflows, ensuring stable pipeline behavior and expected functionality.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 54,
+          "name": "RGB Camera Stress / Teams Call with MEP Features in Battery Mode",
+          "acronym": "RGB",
+          "description": "Validate RGB camera behavior during Microsoft Teams calls when Microsoft Effects Package (MEP) features are enabled while operating on battery power, ensuring acceptable image quality, feature reliability, power efficiency, and user experience.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 55,
+          "name": "RGB Camera Stress / Teams Call with MEP Features in Charging Mode",
+          "acronym": "RGB",
+          "description": "Validate RGB camera behavior during Microsoft Teams calls when Microsoft Effects Package (MEP) features are enabled while the device is connected to external power, ensuring stable operation, feature consistency, and expected performance.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 56,
+          "name": "Graphics Update Validation / 10-Minute Recording at Default Resolution",
+          "acronym": "GFX",
+          "description": "Validate camera recording stability, image quality, frame consistency, and graphics subsystem interoperability during extended recording sessions using default camera resolution settings.",
+          "driverTags": ["Camera", "Graphics", "NVidia"]         
+        },
+        {
+          "sno": 57,
+          "name": "Graphics Update Validation / 10-Minute Recording at 360p",
+          "acronym": "GFX",
+          "description": "Validate camera recording behavior, stream consistency, image quality, and graphics stack stability during extended recording sessions using a 360p resolution configuration.",
+          "driverTags": ["Camera", "Graphics", "NVidia"]            
+        },
+        {
+          "sno": 58,
+          "name": "Graphics Update Validation / Preview Mode",
+          "acronym": "GFX",
+          "description": "Validate camera preview functionality following graphics driver or graphics component updates, ensuring preview rendering quality, responsiveness, frame delivery, and user experience remain unaffected.",
+          "driverTags": ["Camera", "Graphics", "NVidia"]
+        },
+        {
+          "sno": 59,
+          "name": "Graphics Update Validation / Panoramic Mode",
+          "acronym": "GFX",
+          "description": "Validate panoramic imaging functionality after graphics-related updates, ensuring correct image rendering, capture quality, feature interoperability, and expected camera behavior.",
+          "driverTags": ["Camera", "Graphics", "NVidia"]
+        },
+        {
+          "sno": 60,
+          "name": "Graphics Update Validation / Camera Functionalities",
+          "acronym": "GFX",
+          "description": "Validate end-to-end camera functionality, user experience, feature availability, image processing behavior, and camera-to-graphics subsystem interoperability following graphics driver or platform updates.",
+          "driverTags": ["Camera", "Graphics", "NVidia"]
+        },
+        {
+          "sno": 61,
+          "name": "Graphics Update Validation / IR Scenarios with Anti-Spoofing",
+          "acronym": "GFX",
+          "description": "Validate infrared camera functionality and anti-spoofing behavior following graphics-related updates, ensuring authentication reliability, image processing consistency, and expected security protections remain unaffected.",
+          "driverTags": ["Camera", "Graphics", "NVidia"]
+        },
+        {
+          "sno": 62,
+          "name": "Smoke Validation / Windows Hello During OOBE",
+          "acronym": "SMK",
+          "description": "Validate fundamental Windows Hello camera readiness, enrollment availability, and facial authentication support during Out-of-Box Experience workflows as part of smoke validation coverage.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 63,
+          "name": "Smoke Validation / Camera Driver Performance",
+          "acronym": "SMK",
+          "description": "Validate baseline camera driver stability, responsiveness, initialization behavior, and operational readiness to ensure core functionality is available after system deployment or configuration changes.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 64,
+          "name": "Smoke Validation / Camera Functionalities and Performance",
+          "acronym": "SMK",
+          "description": "Validate essential camera functionality, image acquisition, preview capability, recording support, and overall performance characteristics during smoke test execution.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 65,
+          "name": "Smoke Validation / IR Scenarios",
+          "acronym": "SMK",
+          "description": "Validate fundamental infrared camera functionality, image acquisition behavior, and authentication-related capabilities during smoke validation activities.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 66,
+          "name": "Smoke Validation / IR Scenarios with Anti-Spoofing",
+          "acronym": "SMK",
+          "description": "Validate baseline infrared camera anti-spoofing capabilities and authentication protections during smoke testing to ensure core security functionality remains operational.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 67,
+          "name": "Application Compatibility / Account Picture",
+          "acronym": "APP",
+          "description": "Validate camera interoperability, image capture functionality, and user experience when the camera is used for account profile image creation and management workflows.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 68,
+          "name": "Application Compatibility / Fresh Paint",
+          "acronym": "APP",
+          "description": "Validate camera integration and image acquisition behavior when used within Fresh Paint workflows, ensuring reliable application interaction and expected functionality.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 69,
+          "name": "Application Compatibility / OneNote Desktop",
+          "acronym": "APP",
+          "description": "Validate camera functionality within OneNote Desktop workflows including image capture, document integration, application interoperability, and user experience consistency.",
+          "driverTags": ["Camera"]
+
+        },
+        {
+          "sno": 70,
+          "name": "Application Compatibility / OneNote Store App",
+          "acronym": "APP",
+          "description": "Validate camera integration and image acquisition functionality within the OneNote Store application, ensuring expected behavior across supported usage scenarios.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 71,
+          "name": "Application Compatibility / Skype Desktop",
+          "acronym": "APP",
+          "description": "Validate camera behavior during Skype Desktop communication scenarios including video calling, preview, device selection, streaming quality, and feature interoperability.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 72,
+          "name": "Application Compatibility / Skype Web",
+          "acronym": "APP",
+          "description": "Validate camera functionality within browser-based Skype experiences, ensuring reliable camera access, video streaming, permission handling, and user experience consistency.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 73,
+          "name": "Application Compatibility / CyberLink YouCam",
+          "acronym": "APP",
+          "description": "Validate camera interoperability with CyberLink YouCam, ensuring proper access to camera hardware, image processing features, and application-specific workflows.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 74,
+          "name": "Application Compatibility / Adobe Photoshop Express",
+          "acronym": "APP",
+          "description": "Validate camera image capture functionality and interoperability with Adobe Photoshop Express workflows, ensuring successful image acquisition and processing experiences.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 75,
+          "name": "Application Compatibility / LeadTools Barcode",
+          "acronym": "APP",
+          "description": "Validate camera functionality within barcode scanning and recognition workflows, ensuring image acquisition quality, decoding reliability, and application interoperability.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 76,
+          "name": "Application Compatibility / Google Hangouts",
+          "acronym": "APP",
+          "description": "Validate camera behavior during Google Hangouts communication workflows, ensuring camera availability, video quality, interoperability, and conferencing reliability.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 77,
+          "name": "Application Compatibility / Skype Store App",
+          "acronym": "APP",
+          "description": "Validate camera interoperability within Skype Store application scenarios including preview, video communication, device management, and streaming functionality.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 78,
+          "name": "Application Compatibility / Teams Desktop",
+          "acronym": "APP",
+          "description": "Validate camera behavior during Microsoft Teams Desktop conferencing scenarios including video calling, device switching, Studio Effects integration, and collaboration workflows.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 79,
+          "name": "Application Compatibility / Teams Web",
+          "acronym": "APP",
+          "description": "Validate camera functionality within browser-based Microsoft Teams meetings, ensuring camera access, streaming behavior, permission management, and expected user experience.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 80,
+          "name": "Application Compatibility / Teams",
+          "acronym": "APP",
+          "description": "Validate end-to-end camera functionality across Microsoft Teams collaboration experiences, including conferencing, recording, preview, feature interoperability, and camera management workflows.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 81,
+          "name": "25H2 Features / Auto Share Enablement",
+          "acronym": "25H2",
+          "description": "Validate Auto Share feature enablement workflows, configuration behavior, user experience, and camera integration across supported usage scenarios.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 82,
+          "name": "25H2 Features / Camera Controls in Auto Share Mode",
+          "acronym": "25H2",
+          "description": "Validate camera controls, settings availability, and feature behavior while Auto Share mode is active, ensuring users retain expected functionality and configuration options.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 83,
+          "name": "25H2 Features / Media Type Selection in Auto Share Mode",
+          "acronym": "25H2",
+          "description": "Validate media type selection behavior within Auto Share workflows, ensuring correct handling of supported camera content formats and expected user experiences.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 84,
+          "name": "25H2 Features / Safe Mode and WSE Bypass",
+          "acronym": "25H2",
+          "description": "Validate camera behavior when operating in Safe Mode and Windows Studio Effects bypass scenarios, ensuring graceful feature handling, expected system behavior, and camera availability.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 85,
+          "name": "25H2 Features / User-Specific Mode Settings",
+          "acronym": "25H2",
+          "description": "Validate that camera mode preferences, feature selections, and configuration settings are correctly maintained and applied on a per-user basis across supported workflows.",
+          "driverTags": ["Camera"]
+        },
+        {
+          "sno": 86,
+          "name": "25H2 Features / Windows Hello Facial Sign-In During OOBE Recall Settings",
+          "acronym": "25H2",
+          "description": "Validate Windows Hello facial sign-in behavior during Out-of-Box Experience workflows involving Recall-related settings, ensuring authentication readiness, enrollment compatibility, and consistent user experience.",
+          "driverTags": ["Camera"]
+        }
+      ]
+    },
+    {
+      "sno": 14,
+      "name": "WU_DLC",
+      "description": "Validates Windows Update servicing, driver and firmware lifecycle readiness, package deployment, version compliance, applicability rules, and platform compatibility to ensure Surface image builds and update releases meet release-signoff requirements.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "WindowsUpdate",
+          "acronym": "",
+          "description": "Validates Windows Update servicing behavior by confirming that operating system, driver, and firmware update packages align with approved release content, are correctly targeted to supported devices, comply with expected version requirements, and are available for deployment through the intended update channels.",
+          "driverTags": ["Audio", "BT", "Camera", "CFU", "CMF", "Dock", "DPTF", "EC", "Ethernet", "FPR", "Graphics", "HID", "IPU", "KIP", "NFC", "NPU", "Nvidia", "NVME", "OEMPanel", "PD Controller", "Pen", "Power Meter", "SAM", "SAR", "SID", "SIS", "SMF", "SSH", "Storage FW", "SurfaceME", "TBT", "TCON", "Telemetry", "Touch", "TPM", "Type Cover", "UEFI", "WIFI", "WoT"]
+        },
+        {
+          "sno": 2,
+          "name": "BasicVerificationTests",
+          "acronym": "",
+          "description": "Validates overall image-build readiness through baseline verification of platform configuration, deployed payloads, device enumeration, firmware visibility, driver installation status, system version compliance, and core platform integrity required for release sign-off.",
+          "driverTags": ""
+        },
+        {
+          "sno": 3,
+          "name": "DriverTesting",
+          "acronym": "",
+          "description": "Validates driver and firmware packages by verifying package identity, versioning, installation state, INF correctness, servicing compliance, compatibility with supported operating-system releases, and alignment with approved release payloads while ensuring no blocking issues exist in driver verification results.",
+          "driverTags": ""
+        }        ]
+    },
+    {
+      "sno": 15,
+      "name": "MSI",
+      "description": "Validates Microsoft Surface Windows Installer (MSI) packages used to deploy cumulative driver and firmware updates to supported Surface devices. This category covers package applicability, integrity, installation and servicing behavior, driver and firmware staging, restart-dependent completion, deployment reporting, and verification that the intended payloads reach the correct installed state. It includes Surface-specific components such as graphics, battery, System Aggregator Module, embedded controller, UEFI, keyboard or Type Cover, and Surface Dock content only when those components are included in or explicitly targeted by the package. Issues should be classified under MSI when the primary failure concerns package composition, model or operating-system applicability, installation, upgrade, repair, removal, deployment, logging, restart handling, or the immediate post-install state. Functional defects that remain after the correct package and payload have installed successfully should be classified under the affected component or feature category instead.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Installation and Servicing Functionality",
+          "acronym": "",
+          "description": "Validates the end-to-end behavior of a Surface driver and firmware MSI throughout its supported installation and servicing lifecycle. Testing verifies that the package starts and completes correctly in interactive, unattended, and enterprise deployment contexts; evaluates the current device, processor architecture, Windows release, and build for applicability; stages driver packages in the Driver Store; binds intended drivers to matching devices; stages included firmware for restart-dependent activation; and communicates success, failure, or restart requirements accurately through installer status and diagnostic logs. It also verifies supported reinstall, upgrade, repair, rollback, and removal behavior where applicable, including recovery from interruption or failure without leaving partially installed payloads, unresolved devices, repeated installation requests, or an unstable system state. Post-installation validation confirms that expected devices enumerate without deployment-related errors, intended driver and firmware versions are reported after any required restart, and installation results remain consistent across shutdown, startup, sleep, resume, and subsequent update detection. Surface accessories or platform components, including Surface Dock, Type Cover or keyboard, battery, System Aggregator Module, embedded controller, UEFI, graphics, and other device-specific hardware, are included only when the MSI contains or targets their update payloads.",
+          "driverTags": ""
+        },
+        {
+          "sno": 2,
+          "name": "Package Content and Applicability Validation",
+          "acronym": "",
+          "description": "Validates that a Surface MSI contains the complete, correct, trustworthy, and properly targeted set of driver, firmware, and supporting installation content for the intended Surface model and Windows configuration. Testing compares the package against the approved release definition and verifies expected MSI metadata, driver INF files, catalog files, signed binaries, firmware payloads, version information, providers, device classes, hardware targeting, dependencies, and supporting resources. It confirms that digital signatures and catalog relationships are valid; package content is not corrupt or altered; all required payloads are present; and no unintended, stale, duplicate, superseded, or incompatible drivers or firmware are included. Applicability validation verifies alignment with the intended Surface product, processor architecture, Windows release and build, and device-specific hardware configuration, and confirms that unsupported systems are rejected without modification. After installation and any required restart, the versions and device state reported by Windows must correspond to the package contents, with no missing devices, unexpected component changes, unresolved driver associations, or firmware remaining incomplete. Surface-specific payloads such as System Aggregator Module, embedded controller, UEFI, battery, graphics, keyboard or Type Cover, and Surface Dock are validated when present, but detailed behavioral testing of those components belongs to their respective functional categories once correct package installation has been established.",
+          "driverTags": ""
+        },
+        {
+          "sno": 3,
+          "name": "MSI",
+          "description": "Validates that a Surface MSI contains the complete, correct, trustworthy, and properly targeted set of driver, firmware, and supporting installation content for the intended Surface model and Windows configuration. Testing compares the package against the approved release definition and verifies expected MSI metadata, driver INF files, catalog files, signed binaries, firmware payloads, version information, providers, device classes, hardware targeting, dependencies, and supporting resources. It confirms that digital signatures and catalog relationships are valid; package content is not corrupt or altered; all required payloads are present; and no unintended, stale, duplicate, superseded, or incompatible drivers or firmware are included. Applicability validation verifies alignment with the intended Surface product, processor architecture, Windows release and build, and device-specific hardware configuration, and confirms that unsupported systems are rejected without modification. After installation and any required restart, the versions and device state reported by Windows must correspond to the package contents, with no missing devices, unexpected component changes, unresolved driver associations, or firmware remaining incomplete. Surface-specific payloads such as System Aggregator Module, embedded controller, UEFI, battery, graphics, keyboard or Type Cover, and Surface Dock are validated when present, but detailed behavioral testing of those components belongs to their respective functional categories once correct package installation has been established.",
+          "driverTags": ["Audio", "BT", "Camera", "CFU", "CMF", "Dock", "DPTF", "EC", "Ethernet", "FPR", "Graphics", "HID", "IPU", "KIP", "NFC", "NPU", "Nvidia", "NVME", "OEMPanel", "PD Controller", "Pen", "Power Meter", "SAM", "SAR", "SID", "SIS", "SMF", "SSH", "Storage FW", "SurfaceME", "TBT", "TCON", "Telemetry", "Touch", "TPM", "Type Cover", "UEFI", "WIFI", "WoT"]
+        },
+        {
+          "sno": 4,
+          "name": "Post MSI",
+          "acronym": "",
+          "description": "Validates that a Surface MSI contains the complete, correct, trustworthy, and properly targeted set of driver, firmware, and supporting installation content for the intended Surface model and Windows configuration. Testing compares the package against the approved release definition and verifies expected MSI metadata, driver INF files, catalog files, signed binaries, firmware payloads, version information, providers, device classes, hardware targeting, dependencies, and supporting resources. It confirms that digital signatures and catalog relationships are valid; package content is not corrupt or altered; all required payloads are present; and no unintended, stale, duplicate, superseded, or incompatible drivers or firmware are included. Applicability validation verifies alignment with the intended Surface product, processor architecture, Windows release and build, and device-specific hardware configuration, and confirms that unsupported systems are rejected without modification. After installation and any required restart, the versions and device state reported by Windows must correspond to the package contents, with no missing devices, unexpected component changes, unresolved driver associations, or firmware remaining incomplete. Surface-specific payloads such as System Aggregator Module, embedded controller, UEFI, battery, graphics, keyboard or Type Cover, and Surface Dock are validated when present, but detailed behavioral testing of those components belongs to their respective functional categories once correct package installation has been established.",
+          "driverTags": ["Audio", "BT", "Camera", "CFU", "CMF", "Dock", "DPTF", "EC", "Ethernet", "FPR", "Graphics", "HID", "IPU", "KIP", "NFC", "NPU", "Nvidia", "NVME", "OEMPanel", "PD Controller", "Pen", "Power Meter", "SAM", "SAR", "SID", "SIS", "SMF", "SSH", "Storage FW", "SurfaceME", "TBT", "TCON", "Telemetry", "Touch", "TPM", "Type Cover", "UEFI", "WIFI", "WoT"]
+        }
+      ]
+    },
+    {
+      "sno": 16,
+      "name": "Image BVT",
+      "description": "Covers build verification, qualification, and release-readiness validation of a newly created Microsoft Surface or Windows device image before it is made available for broader automated, self-host, or collateral testing. This category applies to issues involving image composition, pre-install integrity, deployment to a Device Under Test (DUT), first boot, Windows build identity, integrated driver and firmware payloads, device enumeration, release metadata, validation logs, baseline preservation, and final image sign-off. It includes failures caused by missing, extra, incorrect, stale, mismatched, or nonfunctional components in the integrated image, as well as installation, boot, configuration, and release-gating problems. It does not represent detailed functional testing of an individual feature such as graphics, battery management, Surface Dock, Type Cover, ambient light sensing, Connected Standby, audio, camera, networking, or Surface application behavior after the image baseline has been verified. It is also distinct from Windows Hardware Lab Kit certification testing, although an HLK failure may be associated with this category when it directly demonstrates a defect in the packaged or deployed image.",
+      "sub-categories": [
+        {
+          "sno": 1,
+          "name": "Image Build Verification and Sign-off",
+          "acronym": "BVT",
+          "description": "Validates that a newly produced device image is complete, deployable, correctly configured, and suitable for release to downstream testing. Pre-install validation confirms that the image contains the expected operating-system content, driver and firmware packages, INF identities and versions, manifests, registry configuration, release notes, version-information files, scripts, tools, and other required artifacts. It covers missing or corrupted files, incomplete package staging, incorrect folder structure, manifest-to-image discrepancies, incorrect Railcar or build metadata, and mismatches between the approved component table and the payload included in the image. Deployment validation confirms that the image can be installed through the applicable automated or USB-based process on the intended Surface Device Under Test, completes Windows setup without unexpected failure, rollback, recovery, or blocking prompt, and boots reliably to a usable Windows desktop. Post-install validation confirms the expected Windows edition, version, build, architecture, image or Railcar identity, and device configuration. It verifies that planned driver and firmware changes are present and active by comparing the approved component definition with Device Manager, VersionInformation.txt, driver-verification reports, applicable Surface UEFI or BIOS information, release notes, and other build evidence. It includes detection of missing devices, unexpected devices, unresolved Device Manager warning or error states, driver load or start failures, incorrect driver provider, INF, version, or date, firmware-version mismatches, improperly applied firmware capsules, stale or unintended packages, and differences between packaged and installed content. Validation also covers review of setup, driver, payload-comparison, and device-health logs, including failures or warnings that require investigation before release. Sign-off requires successful installation, stable boot, correct build identity, expected payload presence and activation, healthy enumeration of applicable Surface hardware, consistent release metadata, acceptable validation results, and no unresolved release-blocking defect. Any expected exception or waiver must be reviewed and documented rather than assumed to be acceptable. After BVT passes, the validated baseline must be protected from unintended Windows Update, driver, firmware, or servicing changes before collateral execution so that subsequent results remain attributable to the signed-off image. Issues should be assigned here when they concern the integrity, deployment, integrated payload correctness, baseline health, or release readiness of the complete image. Feature-specific functional defects found after the image baseline is confirmed should be assigned to the corresponding graphics, power, battery, firmware, input, Dock, sensor, connectivity, application, or other functional category.",
+          "driverTags": ""
+        }
+      ]
+    }          
+  ]
+}

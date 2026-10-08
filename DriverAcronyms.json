@@ -1,0 +1,259 @@
+[
+    {
+        "Sno": 1,
+        "Acronym": "Audio",
+        "Expanded Form": "Audio",
+        "Description": "Audio subsystem (speakers, microphones, endpoints, Dolby, PAS, communication scenarios)."
+    },
+    {
+        "Sno": 2,
+        "Acronym": "BT",
+        "Expanded Form": "Bluetooth",
+        "Description": "Bluetooth wireless connectivity",
+        "Notes": "A common component tag listed alongside WiFi and Ethernet, clearly indicating Bluetooth wireless connectivity."
+    },
+    {
+        "Sno": 3,
+        "Acronym": "BTTC",
+        "Expanded Form": "Bluetooth Test Controller",
+        "Description": "Bluetooth validation and test infrastructure component used for Bluetooth connectivity, interoperability, performance, certification, and regression testing scenarios."
+    },
+    {
+        "Sno": 4,
+        "Acronym": "Camera",
+        "Expanded Form": "Camera",
+        "Description": "Camera subsystem (front/rear facing cameras, Windows Hello, camera app scenarios)."
+    },
+    {
+        "Sno": 5,
+        "Acronym": "CFU",
+        "Expanded Form": "Component Firmware Update",
+        "Description": "Framework used to deliver, manage, validate, and monitor firmware updates for hardware components through Windows servicing and update mechanisms."
+    },
+    {
+        "Sno": 6,
+        "Acronym": "CMF",
+        "Expanded Form": "Color, Material and Finish",
+        "Description": "Industrial design and hardware quality category covering cosmetic appearance, material quality, color consistency, surface finish, and physical build validation."
+    },
+    {
+        "Sno": 7,
+        "Acronym": "Dock",
+        "Expanded Form": "Dock",
+        "Description": "Surface Dock / docking station hardware and related connectivity (USB-C, Thunderbolt, monitors, peripherals)."
+    },
+    {
+        "Sno": 8,
+        "Acronym": "DPTF",
+        "Expanded Form": "Dynamic Platform and Thermal Framework",
+        "Description": "A solution for managing device power and thermal characteristics to prevent overheating."
+    },
+    {
+        "Sno": 9,
+        "Acronym": "EC",
+        "Expanded Form": "Embedded Controller",
+        "Description": "Microcontroller-based subsystem responsible for low-level hardware management, power sequencing, thermal control, battery management, and communication between firmware and device components.",
+        "Notes": "Appears in platform and power-related component lists."  
+    },
+    {
+        "Sno": 10,
+        "Acronym": "Ethernet",
+        "Expanded Form": "Ethernet",
+        "Description": "Wired networking capability, commonly listed with WIFI, BT, and Dock components."
+    },
+    {
+        "Sno": 11,
+        "Acronym": "FPR",
+        "Expanded Form": "Fingerprint Reader",
+        "Description": "Biometric authentication hardware used for secure user identification and Windows Hello sign-in experiences.",
+        "Notes": "Appears in keyboard FPR testing scenarios."    
+    },
+    {
+        "Sno": 12,
+        "Acronym": "Graphics",
+        "Expanded Form": "Graphics",
+        "Description": "Graphics subsystem (iGPU/dGPU, DirectX, Vulcan, display output, performance benchmarks)."
+    },
+    {
+        "Sno": 13,
+        "Acronym": "HID",
+        "Expanded Form": "Human Interface Device",
+        "Description": "A standard for computer peripherals such as keyboards, mice, and other input devices."
+    },
+    {
+        "Sno": 14,
+        "Acronym": "IPU",
+        "Expanded Form": "Image Processing Unit",
+        "Description": "Dedicated image-processing hardware responsible for camera optimization, image enhancement, video acceleration, AI-assisted imaging, and visual processing workloads.",
+        "Notes": "Appears as a repeated component tag with SAM, Touch, Graphics, and battery-related scenarios. Likely refers to a hardware or platform control block."
+    },
+    {
+        "Sno": 15,
+        "Acronym": "KIP",
+        "Expanded Form": "Keyboard Integration Package",
+        "Description": "Platform component responsible for keyboard integration, input processing, firmware interaction, hotkey functionality, and Type Cover related functionality."
+    },
+    {
+        "Sno": 16,
+        "Acronym": "NFC",
+        "Expanded Form": "Near Field Communication",
+        "Description": "Short-range wireless communication technology that enables secure data exchange, device pairing, authentication, and proximity-based interactions.",
+        "Notes": "Listed among platform components."
+    },
+    {
+        "Sno": 17,
+        "Acronym": "NPU",
+        "Expanded Form": "Neural Processing Unit",
+        "Description": "Dedicated hardware accelerator designed to execute artificial intelligence and machine learning workloads with high performance and power efficiency.",
+        "Notes": "Appears in Copilot, Recall, and AI-related productivity scenarios."
+    },
+    {
+        "Sno": 18,
+        "Acronym": "Nvidia",
+        "Expanded Form": "NVIDIA",
+        "Description": "NVIDIA discrete GPU hardware and related drivers/graphics stack."
+    },
+    {
+        "Sno": 19,
+        "Acronym": "NVME",
+        "Expanded Form": "Non-Volatile Memory Express",
+        "Description": "High-performance storage interface and protocol designed for SSDs, providing low latency and high throughput access to non-volatile storage devices.",
+        "Notes": "Used as a component tag in the CTQ file."
+    },
+    {
+        "Sno": 20,
+        "Acronym": "OEMPanel",
+        "Expanded Form": "OEM Panel",
+        "Description": "Display panel hardware supplied by the device manufacturer, responsible for visual output, brightness, color reproduction, and touch/display integration.",
+        "Notes": "The file uses it as a display subsystem tag."
+    },
+    {
+        "Sno": 21,
+        "Acronym": "PD Controller",
+        "Expanded Form": "Power Delivery Controller",
+        "Description": "Hardware controller that manages USB Power Delivery negotiation, charging behavior, power role switching, and power distribution across connected devices.",
+        "Notes": "Appears as a hardware control subsystem tag in the device list and across pen, dock, and power-related CTQs."
+    },
+    {
+        "Sno": 22,
+        "Acronym": "Pen",
+        "Expanded Form": "Pen",
+        "Description": "Surface Pen / stylus input hardware and related functionality (pairing, charging, inking, haptics, etc.)."
+    },
+    {
+        "Sno": 23,
+        "Acronym": "Power Meter",
+        "Expanded Form": "Power Meter",
+        "Description": "Hardware or instrumentation used for power measurement / telemetry collection during testing."
+    },
+    {
+        "Sno": 24,
+        "Acronym": "SAM",
+        "Expanded Form": "Surface Aggregator Module",
+        "Description": "Core Surface platform controller responsible for coordinating communication between Windows, firmware, sensors, peripherals, and embedded hardware components.",
+        "Notes": "Appears across battery, audio, productivity, pen, dock, touch, and other scenarios, indicating a central platform-management component."
+    },
+    {
+        "Sno": 25,
+        "Acronym": "SAR",
+        "Expanded Form": "Specific Absorption Rate",
+        "Description": "Regulatory measurement that quantifies the amount of radio-frequency energy absorbed by the human body during operation of wireless devices.",
+        "Notes": "Listed among platform compliance and hardware-related features."
+    },
+    {
+        "Sno": 26,
+        "Acronym": "SID",
+        "Expanded Form": "Surface Integration Driver",
+        "Description": "Core Surface platform driver that enables communication and integration between Windows and Surface-specific hardware, firmware, and platform services."
+    },
+    {
+        "Sno": 27,
+        "Acronym": "SIS",
+        "Expanded Form": "Surface Integration Service",
+        "Description": "Surface platform service layer that works with Surface drivers and firmware to coordinate device-specific functionality, telemetry, configuration, and management operations."
+    },
+    {
+        "Sno": 28,
+        "Acronym": "SMF",
+        "Expanded Form": "Surface Management Framework",
+        "Description": "Framework responsible for Surface device management, firmware coordination, diagnostics, health monitoring, telemetry collection, and platform servicing workflows."
+    },
+    {
+        "Sno": 29,
+        "Acronym": "SSH",
+        "Expanded Form": ["Secure Shell (Internal Tag)", "Surface System Hub"],
+        "Description": "Surface platform hub component that enables communication and coordination among embedded hardware controllers, sensors, peripherals, and platform management services.",
+        "Notes": "Appears as an internal component or feature tag / classification label. Exact expansion is not explicitly defined in the CTQ content."
+    },
+    {
+        "Sno": 30,
+        "Acronym": "Storage FW",
+        "Expanded Form": "Storage Firmware",
+        "Description": "Firmware layer responsible for storage device initialization, reliability, performance optimization, error handling, and communication with the operating system.",
+        "Notes": "Frequently listed as a component tag in performance, driver, and platform scenarios."
+    },
+    {
+        "Sno": 31,
+        "Acronym": "SurfaceME",
+        "Expanded Form": "Surface Management Engine",
+        "Description": "Surface platform management component responsible for low-level device management, firmware coordination, telemetry collection, and hardware orchestration across Surface subsystems.",
+        "Notes": "Internal Surface platform component/module name. Listed as an affected component in commercial and platform scenarios."
+    },
+    {
+        "Sno": 32,
+        "Acronym": "TBT",
+        "Expanded Form": "Thunderbolt",
+        "Description": "High-speed connectivity interface supporting docking stations, external displays, storage devices, PCIe expansion, and USB-C based peripherals.",
+        "Notes": "High-speed I/O or docking-related component tag. Listed without explicit expansion in the CTQ content."
+    },
+    {
+        "Sno": 33,
+        "Acronym": "TCON",
+        "Expanded Form": "Timing Controller",
+        "Description": "Display subsystem controller responsible for panel timing, refresh synchronization, touch/display coordination, and communication with the display hardware.",
+        "Notes": "Appears in touch/display component tags, suggesting a display or touch timing controller component. The document uses it as a component tag but does not define it."
+    },
+    {
+        "Sno": 34,
+        "Acronym": "Telemetry",
+        "Expanded Form": "Telemetry",
+        "Description": "Device telemetry collection and reporting functionality used for sign-off and monitoring."
+    },
+    {
+        "Sno": 35,
+        "Acronym": "Touch",
+        "Expanded Form": "Touch",
+        "Description": "Touch input subsystem / touch digitizer functionality. Frequently listed with TCON, Pen, Graphics, and WoT in component tags."
+    },
+    {
+        "Sno": 36,
+        "Acronym": "TPM",
+        "Expanded Form": "Trusted Platform Module",
+        "Description": "Security-related platform component tag. Listed as an impacted area in commercial and platform CTQs."
+    },
+    {
+        "Sno": 37,
+        "Acronym": "Type Cover",
+        "Expanded Form": "Type Cover",
+        "Description": "Surface Type Cover keyboard accessory hardware and related input functionality."
+    },
+    {
+        "Sno": 38,
+        "Acronym": "UEFI",
+        "Expanded Form": "Unified Extensible Firmware Interface",
+        "Description": "Firmware/boot-level platform functionality. Listed as a device component affected by commercial/SEMM and many platform scenarios."
+    },
+    {
+        "Sno": 39,
+        "Acronym": "WIFI",
+        "Expanded Form": "Wireless Fidelity",
+        "Description": "Wireless networking capability referenced as a component area in productivity, connectivity, and platform scenarios."
+    },
+    {
+        "Sno": 40,
+        "Acronym": "WoT",
+        "Expanded Form": "Wake on Touch",
+        "Description": "Power-management feature allowing the device to wake from a low-power or sleep state when touch input is detected on the display or digitizer.",
+        "Note": "Appears alongside touch, graphics, pen, and IPU in component tags; most likely refers to touch-triggered wake behavior."
+    }
+]
