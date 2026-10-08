@@ -1,0 +1,80 @@
+{
+    "DriverName": "SurfaceIntegrationDriver",
+    "DriverClassName": "System",
+    "ReleaseVersion": "120.8.4.0",
+    "DriverClassGuid": "{4D36E97D-E325-11CE-BFC1-08002BE10318}",
+    "Provider": "%ManufacturerName%",
+    "Model": "",
+    "KnownPortalUrl": "https://www.intel.com/content/www/us/en/download/682431/intel-management-engine-drivers-for-windows-10-and-windows-11.html, https://www.intel.com/content/www/us/en/download-center/home.html, https://www.intel.com/content/www/us/en/support/articles/000005533/software/chipset-software.html",
+    "DriverSCItemNumber": "5531566",
+    "ReleaseDate": "05/06/2026",
+    "INFDescriptionData": {
+      "Version": {
+        "Signature": "$WINDOWS NT$",
+        "Class": "System",
+        "ClassGuid": "{4D36E97D-E325-11CE-BFC1-08002BE10318}",
+        "Provider": "%ManufacturerName%",
+        "CatalogFile": "SurfaceIntegrationDriver.cat",
+        "DriverVer": "05/06/2026,120.8.4.0",
+        "PnpLockdown": "1"
+      },
+      "DestinationDirs": {
+        "DefaultDestDir": "13 ; %WinDir%\\System32\\Drivers",
+        "ProvisioningPackage_CopyFiles": "13 ; DriverStore"
+      },
+      "SourceDisksFiles": {
+        "Surface.Power.Policy.Defaults.ppkg": "1,,",
+        "Surface.Power.Policy.WIN10.Defaults.ppkg": "1,,",
+        "Surface.Power.Policy.WIN11-0.Defaults.ppkg": "1,,",
+        "SurfaceIntegrationDriver.sys": "1,,"
+      },
+      "Manufacturer": {
+        "%ManufacturerName%": "Standard,NTamd64.10.0...19041"
+      },
+      "SupportedDevice": {
+        "Description": "Surface Integration",
+        "InstallSection": "SurfaceIntegrationDriver_Device",
+        "HardwareId": "ACPI\\MSHW0530"
+      },
+      "InstallDetails": {
+        "Files": [
+          "SurfaceIntegrationDriver.sys",
+          "Surface.Power.Policy.Defaults.ppkg",
+          "Surface.Power.Policy.WIN10.Defaults.ppkg",
+          "Surface.Power.Policy.WIN11-0.Defaults.ppkg"
+        ],
+        "Service": "SurfaceIntegrationDriver",
+        "ServiceType": "SERVICE_KERNEL_DRIVER",
+        "StartType": "SERVICE_DEMAND_START",
+        "ErrorControl": "SERVICE_ERROR_NORMAL",
+        "ServiceBinary": "%13%\\SurfaceIntegrationDriver.sys"
+      },
+      "RegistryCapabilities": {
+        "PlatformKipSupported": 1,
+        "UserBatteryDischargeEstimator": "0xFFFFFFFF",
+        "EnableScreenRefreshOnPowerButtonLongPress": 1,
+        "FvevolMaxEncryptRequests": 64,
+        "FvevolMaxCryptoRequestsPerIo": 64,
+        "FvevolMaxDecryptRequests": 64,
+        "BacklightPowerCurvePointCount": 14,
+        "DisplayPanelPowerFloor": 0,
+        "DisplayPanelPowerVsyncDelta": 0,
+        "DisplayPanelPowerDpiFactor": 0,
+        "DisplayPanelPowerAreaFactor": 0
+      },
+      "HardwareRegistry": {
+        "ppkg_updated": 0,
+        "last_known_os_version_major": 0,
+        "last_known_os_version_minor": 0,
+        "win11_ppkg": "\\DosDevices\\%13%\\Surface.Power.Policy.Defaults.ppkg",
+        "win10_ppkg": "\\DosDevices\\%13%\\Surface.Power.Policy.WIN10.Defaults.ppkg",
+        "win110_ppkg": "\\DosDevices\\%13%\\Surface.Power.Policy.WIN11-0.Defaults.ppkg"
+      },
+      "Strings": {
+        "ManufacturerName": "Surface",
+        "DiskName": "Surface Integration Driver Installation Disk",
+        "SurfaceIntegrationDriver.DeviceDesc": "Surface Integration",
+        "SurfaceIntegrationDriver.SVCDESC": "Surface Integration Driver"
+      }
+    }
+}

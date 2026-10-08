@@ -1,0 +1,12 @@
+{
+    "DriverName": "SurfaceSAM",
+    "DriverClassName": "Firmware",
+    "ReleaseVersion": "10.401.139.0",
+    "DriverClassGuid": "{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}",
+    "Provider": "%Provider%",
+    "Model": "",
+    "KnownPortalUrl": "",
+    "DriverSCItemNumber": "5551121",
+    "ReleaseDate": "05/19/2026",
+    "INFDescriptionData": "{\"Version\":{\"Signature\":\"$WINDOWS NT$\",\"Class\":\"Firmware\",\"ClassGuid\":\"{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}\",\"Provider\":\"%Provider%\",\"DriverVer\":\"05/19/2026,10.401.139.0\",\"PnpLockdown\":\"1\",\"CatalogFile\":\"SurfaceSAM.cat\"},\"Manufacturer\":{\"%MfgName%\":\"Firmware,NTamd64.10.0...17134\"},\"Firmware.NTamd64.10.0...17134\":{\"%FirmwareDesc%\":\"Firmware_Install,UEFI\\\\RES_{9490CA71-6A2C-498B-8D5B-15943CA084B8}\"},\"Firmware_Install.NT\":{\"CopyFiles\":\"Firmware_CopyFiles\"},\"Firmware_CopyFiles\":{\"SurfaceSAM_10.401.139.bin\":\"\"},\"Firmware_Install.NT.Hw\":{\"AddReg\":\"Firmware_AddReg\"},\"Firmware_Install.NT.Services\":{\"AddService\":\",%NULL_DRIVER%     ; NULL function driver\"},\"Firmware_AddReg\":{\"HKR,,FirmwareId,,{9490CA71-6A2C-498B-8D5B-15943CA084B8}\":\"\",\"HKR,,FirmwareVersion,%REG_DWORD%,0x0A01918B\":\"\",\"HKR,,FirmwareFilename,,%13%\\\\SurfaceSAM_10.401.139.bin\":\"\"},\"SourceDisksNames\":{\"1\":\"%DiskName%\"},\"SourceDisksFiles\":{\"SurfaceSAM_10.401.139.bin\":\"1\"},\"DestinationDirs\":{\"DefaultDestDir\":\"%DIRID_DRIVER_STORE% ; driver store\"},\"Strings\":{\"Provider\":\"Surface\",\"MfgName\":\"Microsoft Corporation\",\"FirmwareDesc\":\"Surface System Aggregator\",\"DiskName\":\"Surface Firmware Update\",\"DIRID_DRIVER_STORE\":\"13\",\"NULL_DRIVER\":\"2\",\"REG_DWORD\":\"0x00010001\"}}"
+  }
